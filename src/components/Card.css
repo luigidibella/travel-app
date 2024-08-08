@@ -1,0 +1,19 @@
+.square {
+  max-width: 500px; /* Imposta la larghezza massima a 500px */
+  max-height: 400px; /* Imposta l'altezza massima a 500px */
+  border: 1px solid white;
+  overflow: hidden; /* Assicura che eventuali overflow dell'immagine siano nascosti */
+  display: flex; /* Facoltativo, se vuoi centrare l'immagine */
+  align-items: center; /* Facoltativo, se vuoi centrare l'immagine verticalmente */
+  justify-content: center; /* Facoltativo, se vuoi centrare l'immagine orizzontalmente */
+}
+
+img {
+  max-width: 100%; /* L'immagine non deve superare la larghezza del contenitore */
+  max-height: 100%; /* L'immagine non deve superare l'altezza del contenitore */
+  object-fit: contain; /* Mantiene le proporzioni dell'immagine */
+}
+
+p {
+  min-height: 120px;
+}
