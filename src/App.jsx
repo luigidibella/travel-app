@@ -6,8 +6,8 @@ import Navbar from './components/Navbar'
 import Card from './components/Card'
 
 function App() {
-  const [count, setCount] = useState(0)
-
+  const [count, setCount] = useState(0);
+  const [showVisited, setShowVisited] = useState(false);
   const cities = [
     {
       id: 0,
@@ -19,7 +19,7 @@ function App() {
     {
       id: 1,
       title: "Parigi",
-      isVisited: true,
+      isVisited: false,
       description: "Parigi, la capitale della Francia, è famosa per la sua architettura iconica, come la Torre Eiffel e il Louvre. La città è un centro di arte, moda e cultura con una vibrante vita notturna e cucina raffinata.",
       imgURL: "https://images.unsplash.com/photo-1522582324369-2dfc36bd9275?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
     },
@@ -33,7 +33,7 @@ function App() {
     {
       id: 3,
       title: "Roma",
-      isVisited: false,
+      isVisited: true,
       description: "Roma, la capitale d'Italia, è un vero museo a cielo aperto con antiche rovine, come il Colosseo e il Foro Romano. La città è un crogiolo di storia, arte e cultura, con una cucina eccezionale e vivace vita cittadina.",
       imgURL: "https://images.unsplash.com/photo-1603199766980-fdd4ac568a11?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
     },
@@ -52,6 +52,8 @@ function App() {
       imgURL: "https://images.unsplash.com/photo-1529528070131-eda9f3e90919?q=80&w=1935&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
     }
   ];
+
+  const filteredCities = showVisited ? cities.filter(city => city.isVisited) : cities;
 
   return (
     <>
@@ -121,7 +123,7 @@ function App() {
       </div> */}
 
       {/* Metodo filter */}
-      <div className='grid grid-cols-3 gap-5 mt-10'>
+      {/* <div className='grid grid-cols-3 gap-5 mt-10'>
         {cities
           .filter((city) => city.isVisited)
           .map((city) => (
@@ -133,6 +135,38 @@ function App() {
               description={city.description}
             ><hr /></Card>
           ))}
+      </div> */}
+
+      {/* Metodo Show */}
+      <div>
+        {/* <button
+          onClick={() => setShowVisited(!showVisited)}
+          className="bg-blue-800 text-white py-2 px-4 rounded mt-10"
+        >
+          {showVisited ? 'Mostra tutte le città' : 'Mostra solo città visitate'}
+        </button> */}
+       
+        <a 
+          onClick={() => setShowVisited(!showVisited)}
+          href="#" 
+          class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 mt-5"
+        >
+            {showVisited ? 'Mostra tutte le città' : 'Mostra solo città visitate'}
+        </a>
+
+        <div className='grid grid-cols-3 gap-5 mt-5'>
+          {filteredCities.map((city) => (
+            <Card 
+              key={city.id}
+              imgURL={city.imgURL}
+              title={city.title}
+              isVisited={city.isVisited}
+              description={city.description}
+            >
+              <hr />
+            </Card>
+          ))}
+        </div>
       </div>
       
       {/* Placeholder */}
