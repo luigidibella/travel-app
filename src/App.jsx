@@ -4,11 +4,14 @@ import viteLogo from '/vite.svg'
 import './App.css'
 import Navbar from './components/Navbar'
 import Card from './components/Card'
+import CardForm from './components/CardForm'
 
 function App() {
   const [count, setCount] = useState(0);
+
   const [showVisited, setShowVisited] = useState(false);
-  const cities = [
+
+  const [cities, setCities] = useState([
     {
       id: 0,
       title: "Tokyo",
@@ -35,14 +38,14 @@ function App() {
       title: "Roma",
       isVisited: true,
       description: "Roma, la capitale d'Italia, è un vero museo a cielo aperto con antiche rovine, come il Colosseo e il Foro Romano. La città è un crogiolo di storia, arte e cultura, con una cucina eccezionale e vivace vita cittadina.",
-      imgURL: "https://images.unsplash.com/photo-1603199766980-fdd4ac568a11?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+      imgURL: "https://images.unsplash.com/photo-1645649644176-275e96b2af7f?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
     },
     {
       id: 4,
       title: "Sydney",
       isVisited: false,
       description: "Sydney, una delle città più iconiche dell'Australia, è nota per la sua iconica Opera House e il Harbour Bridge. Con le sue splendide spiagge e un clima mite, è un centro vivace di cultura, gastronomia e attività all'aperto.",
-      imgURL: "https://images.unsplash.com/photo-1619458845477-d3c58085beea?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8c2lkbmV5fGVufDB8fDB8fHww"
+      imgURL: "https://images.unsplash.com/photo-1585719475530-a3c546426d9a?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxjb2xsZWN0aW9uLXBhZ2V8NDZ8MTE1MjExOTN8fGVufDB8fHx8fA%3D%3D"
     },
     {
       id: 5,
@@ -51,7 +54,11 @@ function App() {
       description: "Città del Capo, situata in Sudafrica, è celebre per la sua bellezza naturale, con il maestoso Table Mountain e splendide spiagge. La città è anche un vivace centro culturale con una ricca storia e una cucina variegata.",
       imgURL: "https://images.unsplash.com/photo-1529528070131-eda9f3e90919?q=80&w=1935&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
     }
-  ];
+  ]);
+
+  const addCity = (city) => {
+    setCities([...cities, city])
+  };
 
   const filteredCities = showVisited ? cities.filter(city => city.isVisited) : cities;
 
@@ -168,6 +175,10 @@ function App() {
           ))}
         </div>
       </div>
+
+      <CardForm
+        addCity={addCity}
+      ></CardForm>
       
       {/* Placeholder */}
       {/* <div>
@@ -194,4 +205,4 @@ function App() {
   )
 }
 
-export default App
+export default App;
