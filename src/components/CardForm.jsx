@@ -1,6 +1,9 @@
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { add } from '../redux/citiesSlice';
 
 function CardForm ({addCity}) {
+  const dispatch = useDispatch();
   const [formData, setFormData] = useState({
     title: "",
     isVisited: false,
@@ -32,7 +35,8 @@ function CardForm ({addCity}) {
       description: "",
       imgURL: ""
     });
-    addCity(city);
+    // addCity(city);
+    dispatch(add(city));
   };
 
   return (

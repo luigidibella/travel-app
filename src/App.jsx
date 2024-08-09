@@ -5,13 +5,14 @@ import './App.css';
 import Navbar from './components/Navbar';
 import Card from './components/Card';
 import CardForm from './components/CardForm';
+import { useSelector } from 'react-redux';
 
 function App() {
   const [count, setCount] = useState(0);
 
   const [showVisited, setShowVisited] = useState(false);
 
-  const [cities, setCities] = useState([
+  /* const [cities, setCities] = useState([
     {
       id: 0,
       title: "Tokyo",
@@ -54,11 +55,13 @@ function App() {
       description: "Città del Capo, situata in Sudafrica, è celebre per la sua bellezza naturale, con il maestoso Table Mountain e splendide spiagge. La città è anche un vivace centro culturale con una ricca storia e una cucina variegata.",
       imgURL: "https://images.unsplash.com/photo-1529528070131-eda9f3e90919?q=80&w=1935&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
     }
-  ]);
+  ]); */
 
-  const addCity = (city) => {
+  const cities = useSelector((state) => state.cities.value);
+
+  /* const addCity = (city) => {
     setCities([...cities, city])
-  };
+  }; */
 
   const filteredCities = showVisited ? cities.filter(city => city.isVisited) : cities;
 
@@ -177,7 +180,7 @@ function App() {
       </div>
 
       <CardForm
-        addCity={addCity}
+        // addCity={addCity}
       ></CardForm>
       
       {/* Placeholder */}
