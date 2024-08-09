@@ -1,33 +1,39 @@
 import { useState } from 'react';
 
 function CardForm ({addCity}) {
-const [formData, setFormData] = useState({
-  title: "",
-  isVisited: false,
-  description: "",
-  imgURL: ""
-});
+  const [formData, setFormData] = useState({
+    title: "",
+    isVisited: false,
+    description: "",
+    imgURL: ""
+  });
 
-const handleInputChange = (e) => {
-  const {name, value, type, checked} = e.target
-  const inputValue = type == "checkbox" ? checked : value
-  setFormData({
-    ...formData,
-    [name]: inputValue,
-  })
-};
-
-const handleSubmit = (e) => {
-  e.preventDefault();
-  const city = {
-    id: Math.random(),
-    title: formData.title,
-    isVisited: formData.isVisited,
-    description: formData.description,
-    imgURL: formData.imgURL
+  const handleInputChange = (e) => {
+    const {name, value, type, checked} = e.target
+    const inputValue = type == "checkbox" ? checked : value
+    setFormData({
+      ...formData,
+      [name]: inputValue,
+    })
   };
-  addCity(city);
-};
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const city = {
+      id: Math.random(),
+      title: formData.title,
+      isVisited: formData.isVisited,
+      description: formData.description,
+      imgURL: formData.imgURL
+    };
+    setFormData({
+      title: "",
+      isVisited: false,
+      description: "",
+      imgURL: ""
+    });
+    addCity(city);
+  };
 
   return (
     <form 
