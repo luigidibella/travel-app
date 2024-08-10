@@ -1,6 +1,6 @@
-import './card.css';
+import './CardItem.css';
 
-function Card ({title, isVisited, description, imgURL, children}) {
+function CardItem ({title, isVisited, description, imgURL, children}) {
   return (
     <>
       <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
@@ -33,4 +33,4 @@ function Card ({title, isVisited, description, imgURL, children}) {
   );
 }
 
-export default Card;
+export default CardItem;
