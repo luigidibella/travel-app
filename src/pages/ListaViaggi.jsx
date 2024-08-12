@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import Navbar from '../components/Navbar';
 import CardItem from '../components/CardItem';
 import CardForm from '../components/CardForm';
+import { Link } from 'react-router-dom';
 
 function ListaViaggi() {
   // Stato locale che controlla il filtro attuale.
@@ -56,22 +57,24 @@ function ListaViaggi() {
 
             <div className='grid grid-cols-3 gap-5 mt-5'>
               {filteredCities.map((city) => (
-                <CardItem 
-                key={city.id}
-                imgURL={city.imgURL}
-                title={city.title}
-                isVisited={city.isVisited}
-                description={city.description}
-                >
-                  <hr />
-                </CardItem>
+                <Link to={`/lista-viaggi/${city.id}`} key={city.id}>
+                  <CardItem 
+                  key={city.id}
+                  imgURL={city.imgURL}
+                  title={city.title}
+                  isVisited={city.isVisited}
+                  description={city.description}
+                  >
+                    <hr />
+                  </CardItem>
+                </Link>
               ))}
             </div>
 
             <CardForm />
             
           <div className="flex flex-col justify-center items-center h-full mt-5">
-            <img src="src/assets/img/lista-viaggi-cover.jpg" alt="Mappa placeholder" className="max-w-full max-h-full object-contain" />
+            <img src="src/assets/img/lista-viaggi-cover.jpg" alt="Lista viaggi cover" className="max-w-full max-h-full object-contain" />
           </div>
         </div>
       </div>
