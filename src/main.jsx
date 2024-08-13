@@ -15,7 +15,22 @@ import { Provider } from 'react-redux';
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <App></App>
+    element: <App></App>,
+    children: [
+      {
+        index: true,  // Questo definisce l'elemento di default per la rotta principale
+        element: <Card isPreview={true}></Card>,
+        loader: ({ params }) => {
+          // Puoi passare dati di default alla Card, come la prima città
+          const cities = store.getState().cities.value;
+          return cities.length > 0 ? cities[cities.length - 1] : null;
+        },
+      },
+      {
+        path: ":cardID",
+        element: <Card isPreview={true}></Card>,
+      },
+    ],
   },
   {
     path: "/lista-viaggi",
