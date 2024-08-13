@@ -6,7 +6,7 @@ import './App.css';
 import Navbar from './components/Navbar';
 import CardItem from './components/CardItem';
 import CardForm from './components/CardForm';
-import { Link } from 'react-router-dom';
+import { Link, Outlet } from 'react-router-dom';
 
 function App() {
   // Stato locale che controlla il filtro attuale.
@@ -50,31 +50,34 @@ function App() {
         <Navbar />
         <div className="flex-grow">
           <h1 className="text-center text-2xl font-bold my-4">Homepage</h1>
-            <a 
-              onClick={toggleFilter}
-              href="#" 
-              className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-            >
-              {filterText}
-            </a>
+          
+          <Outlet></Outlet>
+            
+          <a 
+            onClick={toggleFilter}
+            href="#" 
+            className="inline-flex items-center mt-5 px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+          >
+            {filterText}
+          </a>
 
-            <div className='grid grid-cols-3 gap-5 mt-5'>
-              {filteredCities.map((city) => (
-                <Link to={`/lista-viaggi/${city.id}`} key={city.id}>
-                  <CardItem 
-                  key={city.id}
-                  imgURL={city.imgURL}
-                  title={city.title}
-                  isVisited={city.isVisited}
-                  description={city.description}
-                  >
-                    <hr />
-                  </CardItem>
-                </Link>
-              ))}
-            </div>
+          <div className='grid grid-cols-3 gap-5 mt-5'>
+            {filteredCities.map((city) => (
+              <Link to={`/${city.id}`} key={city.id}>
+                <CardItem 
+                key={city.id}
+                imgURL={city.imgURL}
+                title={city.title}
+                isVisited={city.isVisited}
+                description={city.description}
+                >
+                  <hr />
+                </CardItem>
+              </Link>
+            ))}
+          </div>
 
-            <CardForm />
+          <CardForm />
             
           <div className="flex flex-col justify-center items-center h-full mt-5">
             <img src="src/assets/img/lista-viaggi-cover.jpg" alt="Lista viaggi cover" className="max-w-full max-h-full object-contain" />
