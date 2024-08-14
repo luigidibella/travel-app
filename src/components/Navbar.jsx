@@ -1,25 +1,27 @@
+import { useSelector, useDispatch } from 'react-redux';
+import { setCurrent } from '../redux/navigationSlice';
 import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import { Link } from 'react-router-dom';
 
-const navigation = [
-  { name: 'Home', to: '/', current: true },
-  { name: 'Lista Viaggi', to: '/lista-viaggi', current: false },
-  { name: 'Mappa', to: '/mappa', current: false },
-  { name: 'Calendario', to: '/calendario', current: false },
-]
-
 function classNames(...classes) {
-  return classes.filter(Boolean).join(' ')
+  return classes.filter(Boolean).join(' ');
 }
 
 export default function Example() {
+  const navigation = useSelector((state) => state.navigation);
+  const dispatch = useDispatch();
+
+  const handleNavigationClick = (name) => {
+    dispatch(setCurrent(name));
+  };
+
   return (
     <Disclosure as="nav" className="bg-gray-800">
       <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
         <div className="relative flex h-16 items-center justify-between">
           <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
-            {/* Mobile menu button*/}
+            {/* Mobile menu button */}
             <DisclosureButton className="group relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
               <span className="absolute -inset-0.5" />
               <span className="sr-only">Open main menu</span>
@@ -46,6 +48,7 @@ export default function Example() {
                       item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
                       'rounded-md px-3 py-2 text-sm font-medium',
                     )}
+                    onClick={() => handleNavigationClick(item.name)}
                   >
                     {item.name}
                   </Link>
@@ -113,6 +116,7 @@ export default function Example() {
                 item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
                 'block rounded-md px-3 py-2 text-base font-medium',
               )}
+              onClick={() => handleNavigationClick(item.name)}
             >
               {item.name}
             </DisclosureButton>
