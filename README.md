@@ -18,28 +18,28 @@ Aggiungi personalizzazioni e funzionalità a tuo piacimento. Alcuni esempi:
 Carica il codice su un servizio di hosting a tua scelta per condividere l’app.
 
 ## Milestone:
-1. Progettazione e pianificazione
+1. Progettazione e pianificazione  
 Definire i requisiti funzionali e non funzionali dell'app e creare un wireframe dell'interfaccia utente. Progettare una soluzione tecnologica adeguata. Pianificare le attività da svolgere per arrivare alla deadline.
 
-2. Setup ambiente e progetto
+2. Setup ambiente e progetto  
 Configurare l’ambiente di sviluppo se necessario e definire un setup di progetto (strumenti, build tools, git etc..). Inizializzare il progetto.
 
-3. Definizione di uno stato (struttura dei dati)
+3. Definizione di uno stato (struttura dei dati)  
 Definire la struttura dati idonea a rappresentare un viaggio e tutti i suoi dettagli, nonché le scelte e i dati inseriti dall’utente.
 
-4. Sviluppo layout e componenti UI
+4. Sviluppo layout e componenti UI  
 Sviluppo della struttura di layout e dei componenti della pagina.
 
-5. Logica applicativa
+5. Logica applicativa  
 Logica di render dell’interfaccia a partire dal dato strutturato. Aggiungi le varie modalità di visualizzazione e interazioni.
 
-6. Persistenza
+6. Persistenza  
 Implementare la funzionalità per salvare la progressione delle tappe (es. LocalStorage o backend) e garantire che i dati siano mantenuti anche dopo la chiusura della pagina.
 
-7. Deployment
+7. Deployment  
 Caricare il codice su un servizio di hosting a tua scelta (Netlify, Vercel, Heroku, ecc.).
 
-8. Documentazione
+8. Documentazione  
 Scrivere un README da aggiungere alla repository per documentare requisiti, installazione e funzionalità. 
 
 🌟 Più viaggi! (BONUS)  
