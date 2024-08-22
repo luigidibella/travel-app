@@ -3,6 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = [
   { name: 'Home', to: '/', current: true },
   { name: 'Lista Viaggi', to: '/lista-viaggi', current: false },
+  { name: 'Nuovo Viaggio', to: '/nuovo-viaggio', current: false },
   { name: 'Mappa', to: '/mappa', current: false },
   { name: 'Calendario', to: '/calendario', current: false },
 ];

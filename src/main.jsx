@@ -6,6 +6,7 @@ import './index.css';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import ListaViaggi from "./pages/ListaViaggi.jsx";
 import Card from './pages/Card.jsx';
+import NuovoViaggio from "./pages/NuovoViaggio.jsx";
 import Mappa from "./pages/Mappa.jsx";
 import Calendario from "./pages/Calendario.jsx";
 
@@ -39,6 +40,10 @@ const router = createBrowserRouter([
   {
     path: "/lista-viaggi/:cardID",
     element: <Card></Card>
+  },
+  {
+    path: "/nuovo-viaggio",
+    element: <NuovoViaggio></NuovoViaggio>
   },
   {
     path: "/mappa",
