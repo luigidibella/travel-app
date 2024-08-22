@@ -15,7 +15,7 @@ function Card({ isPreview = false }) {
   const content = (
     <div className="mt-5 flex bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
       <a href="#">
-        <div className="square">
+        <div className="square rounded-tl-lg md:rounded-bl-lg">
           <img  
             src={city?.imgURL} 
             alt=""
@@ -45,7 +45,7 @@ function Card({ isPreview = false }) {
   return (
     <div className="flex flex-col min-h-screen"> 
       <Navbar />
-      <div className="flex-grow"> 
+      <div className="flex-grow px-5"> 
         <h1 className="text-center text-2xl font-bold my-4 text-white">Dettaglio Viaggio</h1>
         <Link 
           to={'/lista-viaggi'} 
