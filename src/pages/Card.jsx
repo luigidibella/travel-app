@@ -46,7 +46,7 @@ function Card({ isPreview = false }) {
     <div className="flex flex-col min-h-screen"> 
       <Navbar />
       <div className="flex-grow"> 
-        <h1 className="text-center text-2xl font-bold my-4">Dettaglio Viaggio</h1>
+        <h1 className="text-center text-2xl font-bold my-4 text-white">Dettaglio Viaggio</h1>
         <Link 
           to={'/lista-viaggi'} 
           className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"

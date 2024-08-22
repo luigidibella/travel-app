@@ -48,8 +48,8 @@ function App() {
     <>
       <div className="flex flex-col min-h-screen">
         <Navbar />
-        <div className="flex-grow">
-          <h1 className="text-center text-2xl font-bold my-4">Homepage</h1>
+        <div className="flex-grow px-5">
+          <h1 className="text-center text-2xl font-bold my-4 text-white">Homepage</h1>
           
           <Outlet></Outlet>
             
@@ -61,7 +61,7 @@ function App() {
             {filterText}
           </a>
 
-          <div className='grid grid-cols-3 gap-5 mt-5'>
+          <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-10 mt-5'>
             {filteredCities.map((city) => (
               <Link to={`/${city.id}`} key={city.id}>
                 <CardItem 
@@ -77,10 +77,10 @@ function App() {
             ))}
           </div>
 
-          <CardForm />
+          {/* <CardForm /> */}
             
           <div className="flex flex-col justify-center items-center h-full mt-5">
-            <img src="src/assets/img/lista-viaggi-cover.jpg" alt="Lista viaggi cover" className="max-w-full max-h-full object-contain" />
+            <img src="/assets/img/cover.jpg" alt="Lista viaggi cover" className="max-w-full max-h-full object-contain" />
           </div>
         </div>
       </div>
