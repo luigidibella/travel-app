@@ -33,7 +33,8 @@ export default function Example() {
             <div className="flex flex-shrink-0 items-center">
               <img
                 alt="Your Company"
-                src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
+                // src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
+                src="/vite.svg"
                 className="h-8 w-auto"
               />
             </div>
@@ -94,7 +95,7 @@ export default function Example() {
                   </Link>
                 </MenuItem>
                 <MenuItem>
-                  <Link to="#" className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100">
+                  <Link to="/auth" className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100">
                     Sign out
                   </Link>
                 </MenuItem>

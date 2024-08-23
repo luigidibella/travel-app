@@ -9,6 +9,7 @@ import Card from './pages/Card.jsx';
 import NuovoViaggio from "./pages/NuovoViaggio.jsx";
 import Mappa from "./pages/Mappa.jsx";
 import Calendario from "./pages/Calendario.jsx";
+import AuthPage from './pages/AuthPage.jsx';
 
 import store from './redux/store.js';
 import { Provider } from 'react-redux';
@@ -52,6 +53,10 @@ const router = createBrowserRouter([
   {
     path: "/calendario",
     element: <Calendario></Calendario>
+  },
+  {
+    path: "/auth",
+    element: <AuthPage></AuthPage>
   },
 ]);
 
