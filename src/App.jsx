@@ -7,6 +7,7 @@ import Navbar from './components/Navbar';
 import CardItem from './components/CardItem';
 import CardForm from './components/CardForm';
 import { Link, Outlet } from 'react-router-dom';
+import Auth from './components/Auth';
 
 function App() {
   // Stato locale che controlla il filtro attuale.
@@ -49,7 +50,7 @@ function App() {
       <div className="flex flex-col min-h-screen">
         <Navbar />
         <div className="flex-grow px-5">
-          <h1 className="text-center text-2xl font-bold my-4 text-white">Homepage</h1>
+          <h1 className="text-center text-2xl font-bold my-4 text-white">Benvenuto</h1>
           
           <Outlet></Outlet>
             
