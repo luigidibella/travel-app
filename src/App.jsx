@@ -1,33 +1,30 @@
-import { useState } from 'react';
-import { useSelector } from 'react-redux';
-import reactLogo from './assets/react.svg';
-import viteLogo from '/vite.svg';
+// src/App.js
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchCitiesFromFirestore } from './redux/citiesSlice';
+import { Link, Outlet } from 'react-router-dom';
 import './App.css';
 import Navbar from './components/Navbar';
 import CardItem from './components/CardItem';
-import CardForm from './components/CardForm';
-import { Link, Outlet } from 'react-router-dom';
-import Auth from './components/Auth';
 
 function App() {
-  // Stato locale che controlla il filtro attuale.
-  // Inizialmente impostato su 'all', quindi tutte le città sono visibili.
+  const dispatch = useDispatch();
   const [filter, setFilter] = useState('all');
-
-  // Recupera l'elenco delle città dallo store Redux.
   const cities = useSelector((state) => state.cities.value);
 
-  // Filtra le città in base allo stato 'filter'.
+  useEffect(() => {
+    dispatch(fetchCitiesFromFirestore());
+  }, [dispatch]);
+
   const filteredCities = cities.filter((city) => {
     if (filter === 'visited') {
       return city.isVisited;
     } else if (filter === 'notVisited') {
       return !city.isVisited;
     }
-    return true; // 'all' mostra tutte le città
+    return true;
   });
 
-  // Funzione per cambiare il filtro in modo ciclico.
   const toggleFilter = () => {
     if (filter === 'all') {
       setFilter('visited');
@@ -38,7 +35,6 @@ function App() {
     }
   };
 
-  // Determina il testo del bottone in base allo stato 'filter'.
   const filterText = filter === 'all' 
     ? 'Mostra solo città visitate' 
     : filter === 'visited' 
@@ -78,8 +74,6 @@ function App() {
             ))}
           </div>
 
-          {/* <CardForm /> */}
-            
           <div className="flex flex-col justify-center items-center h-full mt-5">
             <img src="/assets/img/cover.jpg" alt="Lista viaggi cover" className="max-w-full max-h-full object-contain" />
           </div>

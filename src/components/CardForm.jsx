@@ -1,12 +1,14 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { add } from '../redux/citiesSlice';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate
+import { useNavigate } from 'react-router-dom';
+import { collection, addDoc } from "firebase/firestore"; // Import Firestore functions
+import { db } from '../firebaseConfig'; // Import the Firestore database
 import './CardForm.css';
 
 function CardForm() {
   const dispatch = useDispatch();
-  const navigate = useNavigate(); // Initialize useNavigate hook
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     title: "",
     isVisited: false,
@@ -23,8 +25,9 @@ function CardForm() {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => { // Make handleSubmit asynchronous
     e.preventDefault();
+
     const city = {
       id: Math.random(),
       title: formData.title,
@@ -32,14 +35,27 @@ function CardForm() {
       description: formData.description,
       imgURL: formData.imgURL
     };
-    setFormData({
-      title: "",
-      isVisited: false,
-      description: "",
-      imgURL: ""
-    });
-    dispatch(add(city));
-    navigate('/lista-viaggi'); // Use navigate for redirection
+
+    try {
+      // Add a new document with the form data to Firestore
+      await addDoc(collection(db, "cities"), city);
+
+      // Reset the form data after successful submission
+      setFormData({
+        title: "",
+        isVisited: false,
+        description: "",
+        imgURL: ""
+      });
+
+      // Optionally, dispatch to Redux store if needed
+      dispatch(add(city));
+
+      // Redirect to another page after submission
+      navigate('/lista-viaggi');
+    } catch (error) {
+      console.error("Error adding document: ", error);
+    }
   };
 
   return (
