@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { setCurrent } from '../redux/navigationSlice';
 import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
@@ -15,6 +16,8 @@ export default function Example() {
   const handleNavigationClick = (name) => {
     dispatch(setCurrent(name));
   };
+
+  const [isLogin, setIsLogin] = useState(true);
 
   return (
     <Disclosure as="nav" className="bg-gray-800">
@@ -86,18 +89,20 @@ export default function Example() {
               >
                 <MenuItem>
                   <Link to="#" className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100">
-                    Your Profile
+                    Il tuo profilo
                   </Link>
                 </MenuItem>
                 <MenuItem>
                   <Link to="#" className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100">
-                    Settings
+                    Impostazioni
                   </Link>
                 </MenuItem>
                 <MenuItem>
-                  <Link to="/auth" className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100">
-                    Sign out
-                  </Link>
+                  {isLogin ? (
+                    <Link onClick={() => setIsLogin(false)} to="/auth"  className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100">Registrati</Link>
+                  ) : (
+                    <Link onClick={() => setIsLogin(true)} to="/auth"  className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100">Accedi</Link>
+                  )}
                 </MenuItem>
               </MenuItems>
             </Menu>
