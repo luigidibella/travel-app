@@ -7,11 +7,11 @@ import store from './redux/store.js';
 import './index.css';
 
 import App from './App.jsx';
-import ListaViaggi from './pages/ListaViaggi.jsx';
+import TravelList from './pages/TravelList.jsx';
 import CardDetails from './pages/CardDetails.jsx';
-import NuovoViaggio from './pages/NuovoViaggio.jsx';
-import Mappa from './pages/Mappa.jsx';
-import Calendario from './pages/Calendario.jsx';
+import NewTravel from './pages/NewTravel.jsx';
+import Map from './pages/Map.jsx';
+import Calendar from './pages/Calendar.jsx';
 import AuthPage from './pages/AuthPage.jsx';
 import NotFoundPage from './pages/NotFoundPage.jsx';
 
@@ -37,7 +37,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/lista-viaggi",
-    element: <ListaViaggi></ListaViaggi>
+    element: <TravelList></TravelList>
   },
   {
     path: "/lista-viaggi/:cardID",
@@ -45,15 +45,15 @@ const router = createBrowserRouter([
   },
   {
     path: "/nuovo-viaggio",
-    element: <NuovoViaggio></NuovoViaggio>
+    element: <NewTravel></NewTravel>
   },
   {
     path: "/mappa",
-    element: <Mappa></Mappa>
+    element: <Map></Map>
   },
   {
     path: "/calendario",
-    element: <Calendario></Calendario>
+    element: <Calendar></Calendar>
   },
   {
     path: "/auth",

@@ -1,7 +1,7 @@
 import Navbar from '../components/Navbar';
 import CardForm from '../components/CardForm';
 
-function NuovoViaggio() {
+function NewTravel() {
   return (
     <div className="flex flex-col min-h-screen"> {/* Flex container che occupa tutta la schermata */}
       <Navbar />
@@ -19,4 +19,4 @@ function NuovoViaggio() {
   );
 }
 
-export default NuovoViaggio;
+export default NewTravel;
