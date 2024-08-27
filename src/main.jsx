@@ -5,7 +5,7 @@ import './index.css';
 
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import ListaViaggi from "./pages/ListaViaggi.jsx";
-import Card from './pages/Card.jsx';
+import CardDetails from './pages/CardDetails.jsx';
 import NuovoViaggio from "./pages/NuovoViaggio.jsx";
 import Mappa from "./pages/Mappa.jsx";
 import Calendario from "./pages/Calendario.jsx";
@@ -21,16 +21,16 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,  // Questo definisce l'elemento di default per la rotta principale
-        element: <Card isPreview={true}></Card>,
+        element: <CardDetails isPreview={true}></CardDetails>,
         loader: ({ params }) => {
-          // Puoi passare dati di default alla Card, come la prima città
+          // Puoi passare dati di default alla CardDetails, come la prima città
           const cities = store.getState().cities.value;
           return cities.length > 0 ? cities[cities.length - 1] : null;
         },
       },
       {
         path: ":cardID",
-        element: <Card isPreview={true}></Card>,
+        element: <CardDetails isPreview={true}></CardDetails>,
       },
     ],
   },
@@ -40,7 +40,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/lista-viaggi/:cardID",
-    element: <Card></Card>
+    element: <CardDetails></CardDetails>
   },
   {
     path: "/nuovo-viaggio",
