@@ -1,18 +1,19 @@
-import { StrictMode } from 'react';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { createRoot } from 'react-dom/client';
-import App from './App.jsx';
+import { StrictMode } from 'react';
+import { Provider } from 'react-redux';
+import store from './redux/store.js';
+
 import './index.css';
 
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import ListaViaggi from "./pages/ListaViaggi.jsx";
+import App from './App.jsx';
+import ListaViaggi from './pages/ListaViaggi.jsx';
 import CardDetails from './pages/CardDetails.jsx';
-import NuovoViaggio from "./pages/NuovoViaggio.jsx";
-import Mappa from "./pages/Mappa.jsx";
-import Calendario from "./pages/Calendario.jsx";
+import NuovoViaggio from './pages/NuovoViaggio.jsx';
+import Mappa from './pages/Mappa.jsx';
+import Calendario from './pages/Calendario.jsx';
 import AuthPage from './pages/AuthPage.jsx';
-
-import store from './redux/store.js';
-import { Provider } from 'react-redux';
+import NotFoundPage from './pages/NotFoundPage.jsx';
 
 const router = createBrowserRouter([
   {
@@ -58,12 +59,15 @@ const router = createBrowserRouter([
     path: "/auth",
     element: <AuthPage></AuthPage>
   },
+  {
+    path: "*",
+    element: <NotFoundPage />
+  }
 ]);
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <Provider store={store}>
-      {/* <App></App> */}
       <RouterProvider router={router} />
     </Provider>
   </StrictMode>,
