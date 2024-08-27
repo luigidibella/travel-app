@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchCitiesFromFirestore } from './redux/citiesSlice';
 import { Link, Outlet } from 'react-router-dom';
+import 'flowbite';
 import './App.css';
 import Navbar from './components/Navbar';
 import CardItem from './components/CardItem';
