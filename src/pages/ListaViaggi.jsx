@@ -1,9 +1,8 @@
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import CardItem from '../components/CardItem';
-import CardForm from '../components/CardForm';
-import { Link } from 'react-router-dom';
 
 function ListaViaggi() {
   // Stato locale che controlla il filtro attuale.
@@ -71,8 +70,6 @@ function ListaViaggi() {
               ))}
             </div>
 
-            {/* <CardForm /> */}
-            
           <div className="flex flex-col justify-center items-center h-full mt-5">
             <img src="/assets/img/cover.jpg" alt="Lista viaggi cover" className="max-w-full max-h-full object-contain" />
           </div>
