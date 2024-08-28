@@ -1,5 +1,5 @@
 /* Aggiungi questo al tuo file CSS globale o nel file CSS del componente */
 .tomtom-map-container {
-  width: 1000px !important; /* Assicura che la mappa occupi tutta la larghezza disponibile */
-  height: 500px !important; /* Assicura che la mappa occupi tutta l'altezza disponibile */
+  width: 100vw !important; /* Assicura che la mappa occupi tutta la larghezza disponibile */
+  height: 50vh !important; /* Assicura che la mappa occupi tutta l'altezza disponibile */
 }
