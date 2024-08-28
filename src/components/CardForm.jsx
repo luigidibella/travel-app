@@ -2,21 +2,31 @@ import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { add } from '../redux/citiesSlice';
-import './CardForm.css';
-import { collection, addDoc } from "firebase/firestore"; // Import Firestore functions
-import { db } from '../firebaseConfig'; // Import the Firestore database
+import { collection, addDoc } from "firebase/firestore"; // Importa le funzioni di Firestore
+import { db } from '../firebaseConfig'; // Importa il database Firestore
 
 function CardForm() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  
+  // Funzione per ottenere la data corrente nel formato YYYY-MM-DD
+  const getCurrentDate = () => {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = (today.getMonth() + 1).toString().padStart(2, '0'); // Assicura che il mese sia a 2 cifre
+    const day = today.getDate().toString().padStart(2, '0'); // Assicura che il giorno sia a 2 cifre
+    return `${year}-${month}-${day}`;
+  };
+
   const [formData, setFormData] = useState({
     title: "",
     isVisited: false,
     description: "",
     imgURL: "",
-    stages: [] // New state for stages
+    stages: [] // Nuovo stato per le tappe
   });
-  const [stage, setStage] = useState({ name: "", date: "" }); // State for individual stage input
+
+  const [stage, setStage] = useState({ name: "", date: getCurrentDate() }); // Imposta la data predefinita su oggi
 
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -38,7 +48,7 @@ function CardForm() {
         ...formData,
         stages: [...formData.stages, stage]
       });
-      setStage({ name: "", date: "" }); // Reset stage input
+      setStage({ name: "", date: getCurrentDate() }); // Reimposta l'input della tappa con la data di oggi
     }
   };
 
@@ -51,94 +61,119 @@ function CardForm() {
       isVisited: formData.isVisited,
       description: formData.description,
       imgURL: formData.imgURL,
-      stages: formData.stages // Include stages in the city object
+      stages: formData.stages // Includi le tappe nell'oggetto city
     };
 
     try {
-      // Add a new document with the form data to Firestore
+      // Aggiungi un nuovo documento con i dati del modulo a Firestore
       await addDoc(collection(db, "cities"), city);
 
-      // Reset the form data after successful submission
+      // Reimposta i dati del modulo dopo l'invio riuscito
       setFormData({
         title: "",
         isVisited: false,
         description: "",
         imgURL: "",
-        stages: [] // Reset stages
+        stages: [] // Reimposta le tappe
       });
 
-      // Optionally, dispatch to Redux store if needed
+      // Opzionalmente, esegui il dispatch nello store Redux se necessario
       dispatch(add(city));
 
-      // Redirect to another page after submission
+      // Reindirizza a un'altra pagina dopo l'invio
       navigate('/lista-viaggi');
     } catch (error) {
-      console.error("Error adding document: ", error);
+      console.error("Errore nell'aggiungere il documento: ", error);
     }
   };
 
   return (
-    <form 
-      onSubmit={handleSubmit}
-      className="max-w-sm mx-auto"
-    >
-      {/* Existing Form Fields */}
+    <form onSubmit={handleSubmit} className="max-w-sm mx-auto">
+      {/* Campi del modulo esistenti */}
       <div className="mb-5">
         <label htmlFor="title" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nome Città</label>
-        <input type="text" name="title" value={formData.title} onChange={handleInputChange} id="title" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Nome Città" required />
+        <input 
+          type="text" 
+          name="title" 
+          value={formData.title} 
+          onChange={handleInputChange} 
+          id="title" 
+          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
+          placeholder="Nome Città" 
+          required 
+        />
       </div>
       <div className="mb-5">
         <div className="flex justify-center items-center h-5">
-          <input id="isVisited" type="checkbox" name="isVisited" checked={formData.isVisited} onChange={handleInputChange} className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800" />
+          <input 
+            id="isVisited" 
+            type="checkbox" 
+            name="isVisited" 
+            checked={formData.isVisited} 
+            onChange={handleInputChange} 
+            className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800" 
+          />
           <label htmlFor="isVisited" className="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Visitata</label>
         </div>
       </div>
       <div className="mb-5">
         <label htmlFor="description" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Descrizione</label>
-        <textarea id="description"  name="description" value={formData.description} onChange={handleInputChange} rows="4" className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Descrizione..."></textarea>
+        <textarea 
+          id="description"  
+          name="description" 
+          value={formData.description} 
+          onChange={handleInputChange} 
+          rows="4" 
+          className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
+          placeholder="Descrizione..."
+        ></textarea>
       </div>
       <div className="mb-5">
         <label htmlFor="imgURL" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">URL Immagine</label>
-        <input type="text" name="imgURL" value={formData.imgURL} onChange={handleInputChange} id="imgURL" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="URL Immagine" required />
+        <input 
+          type="text" 
+          name="imgURL" 
+          value={formData.imgURL} 
+          onChange={handleInputChange} 
+          id="imgURL" 
+          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
+          placeholder="URL Immagine" 
+          required 
+        />
       </div>
 
-      {/* New Input Fields for Stages */}
-      {/* <div className='flex justify-between'>
-        <div className="mb-5 me-1">
-          <label htmlFor="stageName" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nome Tappa</label>
-          <input type="text" name="name" value={stage.name} onChange={handleStageChange} id="stageName" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Nome Tappa" />
-        </div>
-        <div className="mb-5 me-1">
-          <label htmlFor="stageDate" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Data</label>
-          <input type="date" name="date" value={stage.date} onChange={handleStageChange} id="stageDate" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
-        </div>
-        <div className="mb-5">
-          <label htmlFor="stageDate" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">+</label>
-          <button type="button" onClick={addStage} className="text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center h-10 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">+</button>
-        </div>
-      </div> */}
-
-      {/* Aggiungi Tappa Finale */}
+      {/* Nuovi campi di input per le tappe */}
       <label htmlFor="stageName" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Aggiungi Tappa</label>
-      <div class="flex">
-          {/* <label for="search-dropdown" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Your Email</label> */}
-          {/* <button id="dropdown-button" data-dropdown-toggle="dropdown" class="flex-shrink-0 z-10 inline-flex items-center py-2.5 px-4 text-sm font-medium text-center text-gray-900 bg-gray-100 border border-e-0 border-gray-300 dark:border-gray-700 dark:text-white rounded-s-lg hover:bg-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-300 dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800" type="button">All categories</button> */}
-          <input type="text" name="name" value={stage.name} onChange={handleStageChange} id="stageName" class="block p-2.5 w-full z-20 text-sm text-gray-900 bg-gray-50 rounded-s-lg rounded-s-gray-100 rounded-s-2 border border-e-0 border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500" placeholder="Nome Tappa" />
-          
-          <div class="relative w-full">
-              {/* <input type="search" id="search-dropdown" class="block p-2.5 w-full z-20 text-sm text-gray-900 bg-gray-50 rounded-e-lg rounded-s-gray-100 rounded-s-2 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500" placeholder="Search" required /> */}
-              <input type="date" name="date" value={stage.date} onChange={handleStageChange} id="stageDate" className="block p-2.5 w-full z-20 text-sm text-gray-900 bg-gray-50 rounded-e-lg rounded-s-gray-100 rounded-s-2 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500 pe-10" />
-              
-              <button type="button" onClick={addStage} class="absolute top-0 end-0 p-2.5 h-full text-sm font-medium text-white bg-blue-700 rounded-e-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                {/* <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
-                </svg> */}
-                +
-              </button>
-          </div>
+      <div className="flex">
+        <input 
+          type="text" 
+          name="name" 
+          value={stage.name} 
+          onChange={handleStageChange} 
+          id="stageName" 
+          className="block p-2.5 w-full z-20 text-sm text-gray-900 bg-gray-50 rounded-s-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500" 
+          placeholder="Nome Tappa" 
+        />
+        <div className="relative w-full">
+          <input 
+            type="date" 
+            name="date" 
+            value={stage.date} 
+            onChange={handleStageChange} 
+            id="stageDate" 
+            className="block p-2.5 w-full z-20 text-sm text-gray-900 bg-gray-50 rounded-e-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500 pe-10" 
+          />
+          <button 
+            type="button" 
+            onClick={addStage} 
+            className="absolute top-0 end-0 p-2.5 h-full text-sm font-medium text-white bg-blue-700 rounded-e-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+          >
+            +
+          </button>
+        </div>
       </div>
 
-      {/* Timeline Display */}
+      {/* Visualizzazione della Timeline */}
       {formData.stages.length > 0 && (
         <ol className="relative border-s border-gray-200 dark:border-gray-700 mt-5">
           {formData.stages.map((stage, index) => (
@@ -151,7 +186,12 @@ function CardForm() {
         </ol>
       )}
 
-      <button type="submit" className="mt-5 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Aggiungi Viaggio</button>
+      <button 
+        type="submit" 
+        className="mt-5 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+      >
+        Aggiungi Viaggio
+      </button>
     </form>
   );
 }
