@@ -13,29 +13,33 @@ function CardDetails({ isPreview = false }) {
   const city = cities.length > 0 ? cities[0] : defaultCity;
 
   const content = (
-    <div className="mt-5 flex bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-      <a href="#">
-        <div className="square rounded-tl-lg md:rounded-bl-lg">
-          <img  
-            src={city?.imgURL} 
-            alt=""
-          />
-        </div>
-      </a>
-      <div className="p-5">
+    city != null && (
+      <div className="my-5 flex bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
         <a href="#">
-          <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-            {city?.title}
-          </h5>
+          <div className="square rounded-tl-lg md:rounded-bl-lg">
+            <img  
+              src={city?.imgURL} 
+              alt={city?.title}
+            />
+          </div>
         </a>
-        <div><hr /></div>
-        {city?.isVisited ? <span>✔️ visitata</span> : <span>❌ non visitata</span>}
-        <div><hr /></div>
-        <p className="mb-3 text-start font-normal text-gray-700 dark:text-gray-400">
-          {city?.description}
-        </p>
+        <div className="p-5">
+          <a href="#">
+            <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+              {city?.title}
+            </h5>
+          </a>
+          <span
+            className={`inline-block mb-2 ${city?.isVisited ? 'text-green-500 border-t border-b border-[#e5e7eb] w-full' : 'text-red-500 border-t border-b border-[#e5e7eb] w-full'}`}
+          >
+            {city?.isVisited ? '✔️ visitata' : '❌ non visitata'}
+          </span>
+          <p className="mb-3 text-start font-normal text-gray-700 dark:text-gray-400">
+            {city?.description}
+          </p>
+        </div>
       </div>
-    </div>
+    )
   );
 
   if (isPreview) {
@@ -72,7 +76,7 @@ function CardDetails({ isPreview = false }) {
               <div className="square rounded-b-lg md:rounded-none md:rounded-e-lg">
                 <img  
                   src="/assets/img/mini-mappa-placeholder.png" 
-                  alt="miao"
+                  alt="mini-mappa-placeholder"
                   />
               </div>
             </a>

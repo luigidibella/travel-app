@@ -38,7 +38,7 @@ export default function Example() {
                 to="/"
               >
                 <img
-                  alt="Your Company"
+                  alt="logo"
                   // src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
                   src="/vite.svg"
                   className="h-8 w-auto"
@@ -81,7 +81,7 @@ export default function Example() {
                   <span className="absolute -inset-1.5" />
                   <span className="sr-only">Open user menu</span>
                   <img
-                    alt=""
+                    alt="avatar"
                     src="/assets/img/avatar.png"
                     className="h-8 w-8 rounded-full"
                   />
