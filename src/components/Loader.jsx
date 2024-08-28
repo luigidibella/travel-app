@@ -3,7 +3,9 @@ import './Loader.css';
 function Loader () {
   return (
     <>
-      <span class="loader"></span>
+      <div>
+        <span class="loader"></span>
+      </div>
     </>
   );
 }

@@ -4,7 +4,7 @@
   display: block;
   margin:15px auto;
   position: relative;
-  color: #FFF;
+  color: #6366f1;
   box-sizing: border-box;
   animation: rotation 1s linear infinite;
 }
@@ -16,14 +16,14 @@
   width: 24px;
   height: 24px;
   top: 0;
-  background-color: #FFF;
+  background-color: #6366f1;
   border-radius: 50%;
   animation: scale50 1s infinite ease-in-out;
 }
 .loader::before {
   top: auto;
   bottom: 0;
-  background-color: #FF3D00;
+  background-color: #1f2937;
   animation-delay: 0.5s;
 }
 
