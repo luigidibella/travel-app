@@ -4,13 +4,21 @@ import { useSelector } from 'react-redux';
 
 function CardDetails({ isPreview = false }) {
   const { cardID } = useParams();
-  const defaultCity = useLoaderData();  // Dati di default dalla rotta
-
+  const defaultCity = useLoaderData();
+  
   const cities = useSelector((state) => 
     state.cities.value.filter((city) => city.id == cardID?.toString())
   );
 
   const city = cities.length > 0 ? cities[0] : defaultCity;
+
+  const formatDate = (date) => {
+    return new Intl.DateTimeFormat('it-IT', {
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric'
+    }).format(new Date(date));
+  };
 
   const content = (
     city != null && (
@@ -60,26 +68,26 @@ function CardDetails({ isPreview = false }) {
         {content}
 
         {city.stages?.length > 0 && (
-          <div className="my-5 flex flex-col sm:flex-row justify-between bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 ">
+          <div className="my-5 flex flex-col sm:flex-row justify-between bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 text-start">
             <div className="p-5 flex justify-center flex-grow">
-                <ol className="relative border-s border-gray-200 dark:border-gray-700">
-                  {city.stages.map((stage, index) => (
-                    <li key={index} className="mb-10 ms-4">
-                      <div className="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -start-1.5 border border-white dark:border-gray-900 dark:bg-gray-700"></div>
-                      <time className="mb-1 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">{stage.date}</time>
-                      <h3 className="text-lg font-semibold text-gray-900 dark:text-white">{stage.name}</h3>
-                    </li>
-                  ))}
-                </ol>
+              <ol className="relative border-s border-gray-200 dark:border-gray-700">
+                {city.stages.map((stage, index) => (
+                  <li key={index} className="mb-10 ms-4">
+                    <div className="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -start-1.5 border border-white dark:border-gray-900 dark:bg-gray-700"></div>
+                    <time className="mb-1 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">{formatDate(stage.date)}</time>
+                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white">{stage.name}</h3>
+                  </li>
+                ))}
+              </ol>
             </div>
-            <a href="#">
-              <div className="square rounded-b-lg md:rounded-none md:rounded-e-lg">
-                <img  
-                  src="/assets/img/mini-mappa-placeholder.png" 
-                  alt="mini-mappa-placeholder"
-                  />
-              </div>
-            </a>
+              <a href="#">
+                <div className="square rounded-b-lg md:rounded-none md:rounded-e-lg">
+                  <img  
+                    src="/assets/img/mini-mappa-placeholder.png" 
+                    alt="mini-mappa-placeholder"
+                    />
+                </div>
+              </a>
           </div>
         )}
         
