@@ -1,8 +1,9 @@
 // src/App.js
 
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchCitiesFromFirestore } from './redux/citiesSlice';
+import { toggleFilter, filterCities } from './redux/filterSlice';
 import { Link, Outlet } from 'react-router-dom';
 import 'flowbite';
 import './App.css';
@@ -11,50 +12,21 @@ import CardItem from './components/CardItem';
 import Footer from './components/Footer';
 
 function App() {
-  // Inizializza il dispatcher di Redux
   const dispatch = useDispatch();
-  
-  // Definisci lo stato locale 'filter' con valore iniziale 'all'
-  const [filter, setFilter] = useState('all');
-  
-  // Recupera la lista delle città dallo stato Redux
+
+  // Recupera la lista delle città e lo stato del filtro dal Redux store
   const cities = useSelector((state) => state.cities.value);
+  const { filterText, filteredCities } = useSelector((state) => state.filter);
 
   // Effettua il fetch delle città da Firestore quando il componente viene montato
   useEffect(() => {
     dispatch(fetchCitiesFromFirestore());
   }, [dispatch]);
 
-  // Filtra le città in base allo stato del filtro
-  const filteredCities = cities.filter((city) => {
-    if (filter === 'visited') {
-      // Mostra solo le città visitate
-      return city.isVisited;
-    } else if (filter === 'notVisited') {
-      // Mostra solo le città non visitate
-      return !city.isVisited;
-    }
-    // Mostra tutte le città
-    return true;
-  });
-
-  // Cambia lo stato del filtro ciclicamente tra 'all', 'visited' e 'notVisited'
-  const toggleFilter = () => {
-    if (filter === 'all') {
-      setFilter('visited');
-    } else if (filter === 'visited') {
-      setFilter('notVisited');
-    } else {
-      setFilter('all');
-    }
-  };
-
-  // Testo del pulsante di filtro in base allo stato attuale del filtro
-  const filterText = {
-    'all': 'Mostra solo città visitate',
-    'visited': 'Mostra solo città non visitate',
-    'notVisited': 'Mostra tutte le città'
-  }[filter];
+  // Aggiorna la lista delle città filtrate ogni volta che 'cities' o 'filterText' cambiano
+  useEffect(() => {
+    dispatch(filterCities(cities));
+  }, [dispatch, cities, filterText]); // Aggiungi filterText qui
 
   return (
     <>
@@ -70,8 +42,8 @@ function App() {
 
           {/* Pulsante per cambiare il filtro */}
           <button 
-            onClick={toggleFilter}
-            className="inline-flex items-center mt-5 px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+            onClick={() => dispatch(toggleFilter())}
+            className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
           >
             {filterText}
           </button>
@@ -82,6 +54,7 @@ function App() {
               // Link alla pagina dei dettagli della città specifica
               <Link to={`/${city.id}`} key={city.id}>
                 <CardItem 
+                  cityID={city.id}
                   imgURL={city.imgURL}
                   title={city.title}
                   isVisited={city.isVisited}
