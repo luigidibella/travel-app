@@ -102,11 +102,7 @@ export default function Example() {
                   </Link>
                 </MenuItem>
                 <MenuItem>
-                  {isLogin ? (
-                    <Link onClick={() => setIsLogin(false)} to="/auth"  className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100">Registrati</Link>
-                  ) : (
-                    <Link onClick={() => setIsLogin(true)} to="/auth"  className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100">Accedi</Link>
-                  )}
+                  <Link to="/auth"  className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100">Logout</Link>
                 </MenuItem>
               </MenuItems>
             </Menu>
