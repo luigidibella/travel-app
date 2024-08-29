@@ -22,23 +22,23 @@
   },
   {
     "id": 3,
+    "title": "Città del Capo",
+    "isVisited": false,
+    "description": "Città del Capo, situata in Sudafrica, è celebre per la sua bellezza naturale, con il maestoso Table Mountain e splendide spiagge. La città è anche un vivace centro culturale con una ricca storia e una cucina variegata.",
+    "imgURL": "https://firebasestorage.googleapis.com/v0/b/travel-app-1set24.appspot.com/o/citta-del-capo.avif?alt=media&token=27cae7f3-caed-475b-a603-0d34012e099c"
+  },
+  {
+    "id": 4,
     "title": "Roma",
     "isVisited": true,
     "description": "Roma, la capitale d'Italia, è un vero museo a cielo aperto con antiche rovine, come il Colosseo e il Foro Romano. La città è un crogiolo di storia, arte e cultura, con una cucina eccezionale e vivace vita cittadina.",
     "imgURL": "https://firebasestorage.googleapis.com/v0/b/travel-app-1set24.appspot.com/o/roma.avif?alt=media&token=33ec8f3a-3bc4-44e1-a4fd-5eb7e52528e5"
   },
   {
-    "id": 4,
+    "id": 5,
     "title": "Sydney",
     "isVisited": false,
     "description": "Sydney, una delle città più iconiche dell'Australia, è nota per la sua iconica Opera House e il Harbour Bridge. Con le sue splendide spiagge e un clima mite, è un centro vivace di cultura, gastronomia e attività all'aperto.",
     "imgURL": "https://firebasestorage.googleapis.com/v0/b/travel-app-1set24.appspot.com/o/sidney.avif?alt=media&token=5eca8a1e-31b3-4ab9-8d7e-1389c4b77e40"
-  },
-  {
-    "id": 5,
-    "title": "Città del Capo",
-    "isVisited": false,
-    "description": "Città del Capo, situata in Sudafrica, è celebre per la sua bellezza naturale, con il maestoso Table Mountain e splendide spiagge. La città è anche un vivace centro culturale con una ricca storia e una cucina variegata.",
-    "imgURL": "https://firebasestorage.googleapis.com/v0/b/travel-app-1set24.appspot.com/o/citta-del-capo.avif?alt=media&token=27cae7f3-caed-475b-a603-0d34012e099c"
   }
 ]
