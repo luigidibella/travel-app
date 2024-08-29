@@ -26,7 +26,7 @@ const router = createBrowserRouter([
         loader: ({ params }) => {
           // Puoi passare dati di default alla CardDetails, come la prima città
           const cities = store.getState().cities.value;
-          return cities.length > 0 ? cities[cities.length - 1] : null;
+          return cities.length > 0 ? cities[0] : null;
         },
       },
       {
