@@ -1,32 +1,16 @@
-// src/App.js
+import { useCities } from './redux/hooks/useCities';
+import { Outlet } from 'react-router-dom';
+import { toggleFilter } from './redux/filterSlice';
 
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { fetchCitiesFromFirestore } from './redux/citiesSlice';
-import { toggleFilter, filterCities } from './redux/filterSlice';
-import { Link, Outlet } from 'react-router-dom';
-import 'flowbite';
-import './App.css';
 import Navbar from './components/Navbar';
 import CardItem from './components/CardItem';
 import Footer from './components/Footer';
 
+import 'flowbite';
+import './App.css';
+
 function App() {
-  const dispatch = useDispatch();
-
-  // Recupera la lista delle città e lo stato del filtro dal Redux store
-  const cities = useSelector((state) => state.cities.value);
-  const { filterText, filteredCities } = useSelector((state) => state.filter);
-
-  // Effettua il fetch delle città da Firestore quando il componente viene montato
-  useEffect(() => {
-    dispatch(fetchCitiesFromFirestore());
-  }, [dispatch]);
-
-  // Aggiorna la lista delle città filtrate ogni volta che 'cities' o 'filterText' cambiano
-  useEffect(() => {
-    dispatch(filterCities(cities));
-  }, [dispatch, cities, filterText]); // Aggiungi filterText qui
+  const { filteredCities, filterText, dispatch } = useCities();
 
   return (
     <>
@@ -51,16 +35,15 @@ function App() {
           {/* Griglia di card che mostrano le città filtrate */}
           <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-10 mt-5'>
             {filteredCities.map((city) => (
-              // Link alla pagina dei dettagli della città specifica
-              <Link to={`/${city.id}`} key={city.id}>
-                <CardItem 
-                  cityID={city.id}
-                  imgURL={city.imgURL}
-                  title={city.title}
-                  isVisited={city.isVisited}
-                  description={city.description}
-                />
-              </Link>
+              <CardItem 
+                key={city.id}
+                cardID={city.id}
+                imgURL={city.imgURL}
+                title={city.title}
+                isVisited={city.isVisited}
+                description={city.description}
+                link={`/lista-viaggi/${city.id}`}
+              />
             ))}
           </div>
         </div>
