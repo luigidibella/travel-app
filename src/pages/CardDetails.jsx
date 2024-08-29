@@ -1,15 +1,15 @@
-import Navbar from '../components/Navbar';
-import { Link, useParams, useLoaderData } from 'react-router-dom';
+import { useParams, useLoaderData, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import { selectCityById } from '../redux/selectors';
+import Navbar from '../components/Navbar';
 
 function CardDetails({ isPreview = false }) {
+  // Costanti e funzioni
   const { cardID } = useParams();
   const defaultCity = useLoaderData();
+  const navigate = useNavigate();
+  const cities = useSelector((state) => selectCityById(state, cardID));
   
-  const cities = useSelector((state) => 
-    state.cities.value.filter((city) => city.id == cardID?.toString())
-  );
-
   const city = cities.length > 0 ? cities[0] : defaultCity;
 
   const formatDate = (date) => {
@@ -20,6 +20,11 @@ function CardDetails({ isPreview = false }) {
     }).format(new Date(date));
   };
 
+  const handleGoBack = () => {
+    navigate(-1);
+  };
+
+  // Contenuto principale
   const content = (
     city != null && (
       <div className="my-5 flex bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
@@ -50,6 +55,7 @@ function CardDetails({ isPreview = false }) {
     )
   );
 
+  // Return del componente
   if (isPreview) {
     return content;
   }
@@ -59,12 +65,12 @@ function CardDetails({ isPreview = false }) {
       <Navbar />
       <div className="flex-grow px-5"> 
         <h1 className="text-center text-2xl font-bold my-4 text-white">Dettaglio Viaggio</h1>
-        <Link 
-          to={'/lista-viaggi'} 
+        <button 
+          onClick={handleGoBack}
           className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
         >
           indietro
-        </Link>
+        </button>
         {content}
 
         {city.stages?.length > 0 && (
@@ -80,17 +86,16 @@ function CardDetails({ isPreview = false }) {
                 ))}
               </ol>
             </div>
-              <a href="#">
-                <div className="square rounded-b-lg md:rounded-none md:rounded-e-lg">
-                  <img  
-                    src="/assets/img/mini-mappa-placeholder.png" 
-                    alt="mini-mappa-placeholder"
-                    />
-                </div>
-              </a>
+            <a href="#">
+              <div className="square rounded-b-lg md:rounded-none md:rounded-e-lg">
+                <img  
+                  src="/assets/img/mini-mappa-placeholder.png" 
+                  alt="mini-mappa-placeholder"
+                />
+              </div>
+            </a>
           </div>
         )}
-        
       </div>
     </div>
   );
