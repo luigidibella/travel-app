@@ -3,13 +3,13 @@ import './HoverDetailsCard.css';
 function HoverDetailsCard ({ imgURL, title, children, isVisited, description, cityID }) {
   return (
     <>
-      <div class="card">
+      <div className="card">
             <img src={imgURL} alt={title} />
-        <div class="remove-when-use">
+        <div className="remove-when-use">
           <label>
           </label>
         </div>
-        <div class="details">
+        <div className="details">
           <label>{title}</label>
           <p>
             <span
