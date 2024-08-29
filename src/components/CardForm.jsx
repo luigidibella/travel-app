@@ -2,19 +2,26 @@ import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { add } from '../redux/citiesSlice';
-import { collection, addDoc } from "firebase/firestore"; // Importa le funzioni di Firestore
-import { db } from '../firebaseConfig'; // Importa il database Firestore
+import { collection, addDoc } from "firebase/firestore";
+import { db } from '../firebaseConfig';
 
 function CardForm() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  
-  // Funzione per ottenere la data corrente nel formato YYYY-MM-DD
+
+  const formatDate = (date) => {
+    return new Intl.DateTimeFormat('it-IT', {
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric'
+    }).format(new Date(date));
+  };
+
   const getCurrentDate = () => {
     const today = new Date();
     const year = today.getFullYear();
-    const month = (today.getMonth() + 1).toString().padStart(2, '0'); // Assicura che il mese sia a 2 cifre
-    const day = today.getDate().toString().padStart(2, '0'); // Assicura che il giorno sia a 2 cifre
+    const month = (today.getMonth() + 1).toString().padStart(2, '0');
+    const day = today.getDate().toString().padStart(2, '0');
     return `${year}-${month}-${day}`;
   };
 
@@ -23,10 +30,10 @@ function CardForm() {
     isVisited: false,
     description: "",
     imgURL: "",
-    stages: [] // Nuovo stato per le tappe
+    stages: []
   });
 
-  const [stage, setStage] = useState({ name: "", date: getCurrentDate() }); // Imposta la data predefinita su oggi
+  const [stage, setStage] = useState({ name: "", date: getCurrentDate(), notes: "" });
 
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -48,8 +55,15 @@ function CardForm() {
         ...formData,
         stages: [...formData.stages, stage]
       });
-      setStage({ name: "", date: getCurrentDate() }); // Reimposta l'input della tappa con la data di oggi
+      setStage({ name: "", date: getCurrentDate(), notes: "" });
     }
+  };
+
+  const removeStage = (index) => {
+    setFormData({
+      ...formData,
+      stages: formData.stages.filter((_, i) => i !== index)
+    });
   };
 
   const handleSubmit = async (e) => {
@@ -61,26 +75,22 @@ function CardForm() {
       isVisited: formData.isVisited,
       description: formData.description,
       imgURL: formData.imgURL,
-      stages: formData.stages // Includi le tappe nell'oggetto city
+      stages: formData.stages
     };
 
     try {
-      // Aggiungi un nuovo documento con i dati del modulo a Firestore
       await addDoc(collection(db, "cities"), city);
 
-      // Reimposta i dati del modulo dopo l'invio riuscito
       setFormData({
         title: "",
         isVisited: false,
         description: "",
         imgURL: "",
-        stages: [] // Reimposta le tappe
+        stages: []
       });
 
-      // Opzionalmente, esegui il dispatch nello store Redux se necessario
       dispatch(add(city));
 
-      // Reindirizza a un'altra pagina dopo l'invio
       navigate('/lista-viaggi');
     } catch (error) {
       console.error("Errore nell'aggiungere il documento: ", error);
@@ -89,7 +99,6 @@ function CardForm() {
 
   return (
     <form onSubmit={handleSubmit} className="max-w-sm mx-auto">
-      {/* Campi del modulo esistenti */}
       <div className="mb-5">
         <label htmlFor="title" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nome Città</label>
         <input 
@@ -142,7 +151,6 @@ function CardForm() {
         />
       </div>
 
-      {/* Nuovi campi di input per le tappe */}
       <label htmlFor="stageName" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Aggiungi Tappa</label>
       <div className="flex">
         <input 
@@ -172,15 +180,34 @@ function CardForm() {
           </button>
         </div>
       </div>
+      <div className="mb-5">
+        <label htmlFor="stageNotes" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Note</label>
+        <textarea 
+          id="stageNotes"  
+          name="notes" 
+          value={stage.notes} 
+          onChange={handleStageChange} 
+          rows="2" 
+          className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
+          placeholder="Note Tappa..."
+        ></textarea>
+      </div>
 
-      {/* Visualizzazione della Timeline */}
       {formData.stages.length > 0 && (
         <ol className="relative border-s border-gray-200 dark:border-gray-700 mt-5">
           {formData.stages.map((stage, index) => (
             <li key={index} className="mb-10 ms-4">
               <div className="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -start-1.5 border border-white dark:border-gray-900 dark:bg-gray-700"></div>
-              <time className="mb-1 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">{stage.date}</time>
+              <time className="mb-1 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">{formatDate(stage.date)}</time>
               <h3 className="text-lg font-semibold text-gray-900 dark:text-white">{stage.name}</h3>
+              <p className="text-sm text-gray-500 dark:text-gray-400">{stage.notes}</p>
+              <button 
+                type="button" 
+                onClick={() => removeStage(index)} 
+                className="absolute top-0 right-0 mt-2 mr-2 text-red-500 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300"
+              >
+                &times;
+              </button>
             </li>
           ))}
         </ol>
