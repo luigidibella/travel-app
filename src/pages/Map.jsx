@@ -29,16 +29,17 @@ function Map() {
           const map = tt.map({
             key: TOMTOM_API_KEY,
             container: mapContainerRef.current,
-            center: [18.4241, -33.9249], // Coordinate di Città del Capo
+            center: [139.6917, 35.6895], // Coordinate di Tokyo
             zoom: 12, // Livello di zoom iniziale
+            language: 'it', // Imposta la lingua della mappa in italiano
           });
 
           console.log('Mappa inizializzata');
           
-          // Aggiungi un marker per Città del Capo
+          // Aggiungi un marker per Tokyo
           new tt.Marker()
-            .setLngLat([18.4241, -33.9249])
-            .setPopup(new tt.Popup().setText('Città del Capo'))
+            .setLngLat([139.6917, 35.6895])
+            .setPopup(new tt.Popup().setText('Tokyo'))
             .addTo(map);
 
           console.log('Marker aggiunto alla mappa');
