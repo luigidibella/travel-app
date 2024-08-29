@@ -1,5 +1,6 @@
 import Navbar from '../components/Navbar';
 import CardForm from '../components/CardForm';
+import Footer from '../components/Footer';
 
 function NewTravel() {
   return (
@@ -15,6 +16,7 @@ function NewTravel() {
           </div>
         </div>
       </div>
+      <Footer />
     </div>
   );
 }

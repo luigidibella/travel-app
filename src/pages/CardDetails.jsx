@@ -2,6 +2,7 @@ import { useParams, useLoaderData, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { selectCityById } from '../redux/selectors';
 import Navbar from '../components/Navbar';
+import Footer from '../components/Footer';
 
 function CardDetails({ isPreview = false }) {
   // Costanti e funzioni
@@ -97,6 +98,7 @@ function CardDetails({ isPreview = false }) {
           </div>
         )}
       </div>
+      <Footer />
     </div>
   );
 }

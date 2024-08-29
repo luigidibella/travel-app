@@ -1,6 +1,7 @@
 import Navbar from '../components/Navbar';
 import ReactCalendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
+import Footer from '../components/Footer';
 
 function Calendar () {
   return (
@@ -13,6 +14,7 @@ function Calendar () {
           {/* <img src="/assets/img/calendario-placeholder.png" alt="Calendario placeholder" className="max-w-full max-h-full object-contain" /> */}
         </div>
       </div>
+      <Footer />
     </div>
   );
 }

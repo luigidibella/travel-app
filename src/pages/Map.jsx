@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import Navbar from '../components/Navbar';
 import '@tomtom-international/web-sdk-maps/dist/maps.css'; // Importa il CSS per TomTom Maps
 import './Map.css';
+import Footer from '../components/Footer';
 
 const TOMTOM_API_KEY = '87rH6u74NltAZ17hW8xpBmVJIpQsaK45'; // Sostituisci con la tua chiave API TomTom
 
@@ -72,6 +73,7 @@ function Map() {
           ></div>
         </div>
       </div>
+      <Footer />
     </div>
   );
 }
