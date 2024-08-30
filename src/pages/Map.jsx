@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from 'react';
+import { useCities } from '../redux/hooks/useCities';
 import Navbar from '../components/Navbar';
 import '@tomtom-international/web-sdk-maps/dist/maps.css'; // Importa il CSS per TomTom Maps
 import './Map.css';
@@ -8,7 +9,8 @@ const TOMTOM_API_KEY = '87rH6u74NltAZ17hW8xpBmVJIpQsaK45'; // Sostituisci con la
 
 function Map() {
   const mapContainerRef = useRef(null);
-
+  const { filteredCities } = useCities();
+  
   useEffect(() => {
     console.log('Componente Mappa montato'); // Verifica che il componente sia montato
 
@@ -29,20 +31,24 @@ function Map() {
           const map = tt.map({
             key: TOMTOM_API_KEY,
             container: mapContainerRef.current,
-            center: [139.6917, 35.6895], // Coordinate di Tokyo
-            zoom: 12, // Livello di zoom iniziale
+            center: [15, 25], // Centra la mappa sul punto medio delle coordinate
+            zoom: 1, // Livello di zoom iniziale
             language: 'it', // Imposta la lingua della mappa in italiano
           });
 
           console.log('Mappa inizializzata');
-          
-          // Aggiungi un marker per Tokyo
-          new tt.Marker()
-            .setLngLat([139.6917, 35.6895])
-            .setPopup(new tt.Popup().setText('Tokyo'))
-            .addTo(map);
 
-          console.log('Marker aggiunto alla mappa');
+          // Itera attraverso tutte le città e aggiungi i marker
+          filteredCities.forEach(city => {
+            const { coordinates, title } = city;
+
+            new tt.Marker()
+              .setLngLat(coordinates)
+              .setPopup(new tt.Popup().setText(title))
+              .addTo(map);
+
+            console.log(`Marker aggiunto per ${title}`);
+          });
         } else {
           console.error('TomTom SDK non caricato');
         }
@@ -59,13 +65,13 @@ function Map() {
     } else {
       console.warn('Map container o chiave API mancanti');
     }
-  }, []);
+  }, [filteredCities]);
 
   return (
     <div className="flex flex-col min-h-screen">
       <Navbar />
       <div className="flex-grow px-5">
-        <h1 className="text-center text-2xl font-bold my-4 text-white">Mappa</h1>
+        <h1 className="text-center text-2xl font-bold my-4 text-white">Mappa globale</h1>
         <div className="flex justify-center items-center h-full">
           <div
             ref={mapContainerRef}
