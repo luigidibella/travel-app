@@ -11,7 +11,7 @@
       { "date": "2024-05-03", "name": "Palazzo Imperiale", "coordinates": [139.7528, 35.6852], "notes": "Residenza imperiale con splendidi giardini e architettura tradizionale." },
       { "date": "2024-05-04", "name": "Shibuya Crossing", "coordinates": [139.7006, 35.6595], "notes": "Incrocio famoso per le sue luci e il flusso di pedoni." }
     ],
-    "coordinates": [139.6917, 35.6895]
+    "coordinates": [139.7500, 35.6895]
   },
   {
     "id": 1,
@@ -25,7 +25,7 @@
       { "date": "2024-06-12", "name": "Cattedrale di Notre-Dame", "coordinates": [2.3499, 48.8527], "notes": "Cattedrale gotica celebre per le sue vetrate e l'architettura." },
       { "date": "2024-06-13", "name": "Montmartre", "coordinates": [2.3430, 48.8867], "notes": "Quartiere artistico noto per il suo fascino e la Basilica del Sacré-Cœur." }
     ],
-    "coordinates": [2.3522, 48.8566]
+    "coordinates": [2.3350, 48.8600]
   },
   {
     "id": 2,
