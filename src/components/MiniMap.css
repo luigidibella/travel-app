@@ -1,0 +1,4 @@
+.map-container {
+  width: 500px !important; /* Assicura che la mappa occupi tutta la larghezza disponibile */
+  height: 500px !important; /* Assicura che la mappa occupi tutta l'altezza disponibile */
+}
