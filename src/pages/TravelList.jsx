@@ -15,7 +15,7 @@ function TravelList() {
         <Navbar />
 
         <div className="flex-grow px-5">
-          <h1 className="text-center text-2xl font-bold my-4 text-white">Lista Viaggi</h1>
+          <h1 className="text-center text-2xl font-bold my-4 text-white">I miei viaggi</h1>
             
             {/* Pulsante per cambiare il filtro */}
             <button 
