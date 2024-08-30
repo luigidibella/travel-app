@@ -80,21 +80,22 @@ function CardDetails({ isPreview = false }) {
             <div className="p-5 flex justify-center flex-grow">
               <ol className="relative border-s border-gray-200 dark:border-gray-700">
                 {city.stages.map((stage, index) => (
-                  <li key={index} className="mb-10 ms-4">
+                  <li key={index} className="ms-4">
                     <div className="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -start-1.5 border border-white dark:border-gray-900 dark:bg-gray-700"></div>
                     <time className="mb-1 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">{formatDate(stage.date)}</time>
                     <h3 className="text-lg font-semibold text-gray-900 dark:text-white">{stage.name}</h3>
+                    <p className="text-sm text-gray-500 dark:text-gray-400 min-h-16">{stage.notes}</p> {/* Note delle tappe */}
                   </li>
                 ))}
               </ol>
             </div>
-              <div className="square m-2 rounded-b-lg md:rounded-none md:rounded-e-lg">
-                <MiniMap
-                  coordinates={city?.coordinates}
-                  title={city?.title}
-                  stages={city?.stages}
-                />
-              </div>
+            <div className="square m-2 rounded-b-lg md:rounded-none md:rounded-e-lg">
+              <MiniMap
+                coordinates={city?.coordinates}
+                title={city?.title}
+                stages={city?.stages}
+              />
+            </div>
           </div>
         )}
       </div>
