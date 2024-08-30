@@ -2,6 +2,7 @@ import { useParams, useLoaderData, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { selectCityById } from '../redux/selectors';
 import Navbar from '../components/Navbar';
+import MiniMap from '../components/MiniMap';
 import Footer from '../components/Footer';
 
 function CardDetails({ isPreview = false }) {
@@ -87,14 +88,13 @@ function CardDetails({ isPreview = false }) {
                 ))}
               </ol>
             </div>
-            <a href="#">
-              <div className="square rounded-b-lg md:rounded-none md:rounded-e-lg">
-                <img  
-                  src="/assets/img/mini-mappa-placeholder.png" 
-                  alt="mini-mappa-placeholder"
+              <div className="square m-2 rounded-b-lg md:rounded-none md:rounded-e-lg">
+                <MiniMap
+                  coordinates={city?.coordinates}
+                  title={city?.title}
+                  stages={city?.stages}
                 />
               </div>
-            </a>
           </div>
         )}
       </div>
