@@ -3,7 +3,10 @@ import { Outlet } from 'react-router-dom';
 import { toggleFilter } from './redux/filterSlice';
 
 import Navbar from './components/Navbar';
+import CardDetails from './components/CardDetails';
 import CardItem from './components/CardItem';
+"use client";
+import { Carousel } from "flowbite-react";
 import Footer from './components/Footer';
 
 import 'flowbite';
@@ -21,8 +24,30 @@ function App() {
         <div className="flex-grow px-5">
           <h1 className="text-center text-2xl font-bold my-4 text-white">Benvenuto</h1>
           
+          {/* Carousel */}
+          <div className="h-56 sm:h-64 xl:h-80 2xl:h-96 my-5 flex bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+            <Carousel 
+              slideInterval={3000}
+              leftControl={true} 
+              rightControl={true}
+              indicators={false}
+            >
+              {filteredCities.map((city) => (
+                <CardDetails 
+                  key={city.id}
+                  cardID={city.id}
+                  imgURL={city.imgURL}
+                  title={city.title}
+                  isVisited={city.isVisited}
+                  description={city.description}
+                  link={`/lista-viaggi/${city.id}`}
+                />
+              ))}
+            </Carousel>
+          </div>
+
           {/* Outlet per il rendering delle rotte figlie */}
-          <Outlet />
+          {/* <Outlet /> */}
 
           {/* Pulsante per cambiare il filtro */}
           <button 
