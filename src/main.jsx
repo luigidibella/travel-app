@@ -10,6 +10,7 @@ import App from './App.jsx';
 import TravelList from './pages/TravelList.jsx';
 import DetailsPage from './pages/DetailsPage.jsx';
 import NewTravel from './pages/NewTravel.jsx';
+import EditTravel from './pages/EditTravel.jsx';
 import Map from './pages/Map.jsx';
 import Calendar from './pages/Calendar.jsx';
 import AuthPage from './pages/AuthPage.jsx';
@@ -46,6 +47,10 @@ const router = createBrowserRouter([
   {
     path: "/nuovo-viaggio",
     element: <NewTravel></NewTravel>
+  },
+  {
+    path: "/modifica-viaggio/:cardID",
+    element: <EditTravel></EditTravel>
   },
   {
     path: "/mappa",
