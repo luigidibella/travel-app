@@ -5,7 +5,7 @@ import Navbar from '../components/Navbar';
 import MiniMap from '../components/MiniMap';
 import Footer from '../components/Footer';
 
-function CardDetails({ isPreview = false }) {
+function DetailsPage({ isPreview = false }) {
   // Costanti e funzioni
   const { cardID } = useParams();
   const defaultCity = useLoaderData();
@@ -104,4 +104,4 @@ function CardDetails({ isPreview = false }) {
   );
 }
 
-export default CardDetails;
+export default DetailsPage;

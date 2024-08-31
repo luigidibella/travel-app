@@ -8,7 +8,7 @@ import './index.css';
 
 import App from './App.jsx';
 import TravelList from './pages/TravelList.jsx';
-import CardDetails from './pages/CardDetails.jsx';
+import DetailsPage from './pages/DetailsPage.jsx';
 import NewTravel from './pages/NewTravel.jsx';
 import Map from './pages/Map.jsx';
 import Calendar from './pages/Calendar.jsx';
@@ -22,16 +22,16 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,  // Questo definisce l'elemento di default per la rotta principale
-        element: <CardDetails isPreview={true}></CardDetails>,
+        element: <DetailsPage isPreview={true}></DetailsPage>,
         loader: ({ params }) => {
-          // Puoi passare dati di default alla CardDetails, come la prima città
+          // Puoi passare dati di default alla DetailsPage, come la prima città
           const cities = store.getState().cities.value;
           return cities.length > 0 ? cities[0] : null;
         },
       },
       {
         path: ":cardID",
-        element: <CardDetails isPreview={true}></CardDetails>,
+        element: <DetailsPage isPreview={true}></DetailsPage>,
       },
     ],
   },
@@ -41,7 +41,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/lista-viaggi/:cardID",
-    element: <CardDetails></CardDetails>
+    element: <DetailsPage></DetailsPage>
   },
   {
     path: "/nuovo-viaggio",
