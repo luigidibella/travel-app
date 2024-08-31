@@ -1,13 +1,34 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { add } from '../redux/citiesSlice';
-import { collection, addDoc } from "firebase/firestore";
+import { add, updateCity } from '../redux/citiesSlice'; // Assumi che tu abbia una funzione di aggiornamento nel tuo slice
+import { collection, addDoc, doc, updateDoc } from "firebase/firestore";
 import { db } from '../firebaseConfig';
 
-function CardForm() {
+function CardForm({ initialData, editId }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  console.log(initialData);
+
+  // Stato del modulo
+  const [formData, setFormData] = useState({
+    id: "",
+    title: "",
+    isVisited: false,
+    description: "",
+    imgURL: "",
+    stages: []
+  });
+
+  const [stage, setStage] = useState({ name: "", notes: "" });
+
+  // Effetto per caricare i dati iniziali
+  useEffect(() => {
+    if (initialData) {
+      setFormData(initialData);
+    }
+  }, [initialData]);
 
   const formatDate = (date) => {
     return new Intl.DateTimeFormat('it-IT', {
@@ -17,23 +38,13 @@ function CardForm() {
     }).format(new Date(date));
   };
 
-  const getCurrentDate = () => {
+  /* const getCurrentDate = () => {
     const today = new Date();
     const year = today.getFullYear();
     const month = (today.getMonth() + 1).toString().padStart(2, '0');
     const day = today.getDate().toString().padStart(2, '0');
     return `${year}-${month}-${day}`;
-  };
-
-  const [formData, setFormData] = useState({
-    title: "",
-    isVisited: false,
-    description: "",
-    imgURL: "",
-    stages: []
-  });
-
-  const [stage, setStage] = useState({ name: "", date: getCurrentDate(), notes: "" });
+  }; */
 
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -70,7 +81,7 @@ function CardForm() {
     e.preventDefault();
 
     const city = {
-      id: Math.random(),
+      id: formData.id,
       title: formData.title,
       isVisited: formData.isVisited,
       description: formData.description,
@@ -79,8 +90,17 @@ function CardForm() {
     };
 
     try {
-      await addDoc(collection(db, "cities"), city);
+      if (editId) {
+        // Aggiorna il documento esistente
+        await updateDoc(doc(db, "cities", editId), city);
+        dispatch(updateCity({ id: editId, ...city }));
+      } else {
+        // Aggiungi un nuovo documento
+        const docRef = await addDoc(collection(db, "cities"), city);
+        dispatch(add({ id: docRef.id, ...city }));
+      }
 
+      // Reset form data
       setFormData({
         title: "",
         isVisited: false,
@@ -89,16 +109,15 @@ function CardForm() {
         stages: []
       });
 
-      dispatch(add(city));
-
       navigate('/lista-viaggi');
     } catch (error) {
-      console.error("Errore nell'aggiungere il documento: ", error);
+      console.error("Errore nell'aggiungere o aggiornare il documento: ", error);
     }
   };
 
   return (
     <form onSubmit={handleSubmit} className="max-w-sm mx-auto">
+      {/* Resto del modulo rimane invariato */}
       <div className="mb-5">
         <label htmlFor="title" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nome Città</label>
         <input 
@@ -217,7 +236,7 @@ function CardForm() {
         type="submit" 
         className="mt-5 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
       >
-        Aggiungi Viaggio
+        {editId ? "Aggiorna Viaggio" : "Aggiungi Viaggio"}
       </button>
     </form>
   );
