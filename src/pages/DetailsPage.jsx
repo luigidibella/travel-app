@@ -1,4 +1,4 @@
-import { useParams, useLoaderData, useNavigate } from 'react-router-dom';
+import { useParams, useLoaderData, useNavigate, Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { selectCityById } from '../redux/selectors';
 import Navbar from '../components/Navbar';
@@ -6,7 +6,6 @@ import MiniMap from '../components/MiniMap';
 import Footer from '../components/Footer';
 
 function DetailsPage({ isPreview = false }) {
-  // Costanti e funzioni
   const { cardID } = useParams();
   const defaultCity = useLoaderData();
   const navigate = useNavigate();
@@ -26,9 +25,10 @@ function DetailsPage({ isPreview = false }) {
     navigate(-1);
   };
 
-  // Contenuto principale
+  console.log(city);
+
   const content = (
-    city != null && (
+    city && (
       <div className="my-5 flex bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
         <a href="#">
           <div className="square rounded-tl-lg md:rounded-bl-lg">
@@ -38,10 +38,32 @@ function DetailsPage({ isPreview = false }) {
             />
           </div>
         </a>
-        <div className="p-5">
+        <div className="p-5 relative">
           <a href="#">
             <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
               {city?.title}
+              <Link 
+                to={`/modifica-viaggio/${city.id}`}
+                state={{ city }}
+                className='absolute top-4 end-[60px]'
+              >
+                  <button 
+                    className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-yellow-500 rounded-lg hover:bg-yellow-600 focus:ring-4 focus:outline-none focus:ring-yellow-300 dark:bg-yellow-400 dark:hover:bg-yellow-500 dark:focus:ring-yellow-600"
+                  >
+                    <i class="fa-solid fa-pen-to-square"></i>
+                  </button>
+              </Link>
+              <Link 
+                to={`/modifica-viaggio/${city.id}`}
+                state={{ city }}
+                className='absolute top-4 end-4'
+              >
+                  <button 
+                    className="me-1 inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-red-500 rounded-lg hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-red-300 dark:bg-red-400 dark:hover:bg-red-500 dark:focus:ring-red-600"
+                  >
+                    <i class="fa-solid fa-trash"></i>
+                  </button>
+              </Link>
             </h5>
           </a>
           <span
@@ -57,7 +79,6 @@ function DetailsPage({ isPreview = false }) {
     )
   );
 
-  // Return del componente
   if (isPreview) {
     return content;
   }
@@ -84,7 +105,7 @@ function DetailsPage({ isPreview = false }) {
                     <div className="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -start-1.5 border border-white dark:border-gray-900 dark:bg-gray-700"></div>
                     <time className="mb-1 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">{formatDate(stage.date)}</time>
                     <h3 className="text-lg font-semibold text-gray-900 dark:text-white">{stage.name}</h3>
-                    <p className="text-sm text-gray-500 dark:text-gray-400 min-h-16">{stage.notes}</p> {/* Note delle tappe */}
+                    <p className="text-sm text-gray-500 dark:text-gray-400 min-h-16">{stage.notes}</p>
                   </li>
                 ))}
               </ol>
