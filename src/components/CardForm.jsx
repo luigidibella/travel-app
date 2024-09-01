@@ -1,19 +1,15 @@
 import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { add, updateCity } from '../redux/citiesSlice'; // Assumi che tu abbia una funzione di aggiornamento nel tuo slice
-import { collection, addDoc, doc, updateDoc } from "firebase/firestore";
+import { add, updateCity } from '../redux/citiesSlice';
+import { collection, addDoc, doc, updateDoc, getDoc, setDoc } from "firebase/firestore";
 import { db } from '../firebaseConfig';
 
 function CardForm({ initialData, editId }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  console.log(initialData);
-
-  // Stato del modulo
   const [formData, setFormData] = useState({
-    id: "",
     title: "",
     isVisited: false,
     description: "",
@@ -21,9 +17,8 @@ function CardForm({ initialData, editId }) {
     stages: []
   });
 
-  const [stage, setStage] = useState({ name: "", notes: "" });
+  const [stage, setStage] = useState({ name: "", date: getCurrentDate(), notes: "" });
 
-  // Effetto per caricare i dati iniziali
   useEffect(() => {
     if (initialData) {
       setFormData(initialData);
@@ -38,13 +33,13 @@ function CardForm({ initialData, editId }) {
     }).format(new Date(date));
   };
 
-  /* const getCurrentDate = () => {
+  function getCurrentDate() {
     const today = new Date();
     const year = today.getFullYear();
     const month = (today.getMonth() + 1).toString().padStart(2, '0');
     const day = today.getDate().toString().padStart(2, '0');
     return `${year}-${month}-${day}`;
-  }; */
+  }
 
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -77,11 +72,24 @@ function CardForm({ initialData, editId }) {
     });
   };
 
+  const getNextId = async () => {
+    const counterRef = doc(db, "counters", "cityId");
+    const counterDoc = await getDoc(counterRef);
+    let nextId = 10; // ID iniziale
+
+    if (counterDoc.exists()) {
+      const data = counterDoc.data();
+      nextId = data.lastId + 1;
+    }
+
+    await setDoc(counterRef, { lastId: nextId }, { merge: true });
+    return nextId.toString(); // Ritorna come stringa
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
     const city = {
-      id: formData.id,
       title: formData.title,
       isVisited: formData.isVisited,
       description: formData.description,
@@ -90,17 +98,19 @@ function CardForm({ initialData, editId }) {
     };
 
     try {
-      if (editId) {
-        // Aggiorna il documento esistente
-        await updateDoc(doc(db, "cities", editId), city);
-        dispatch(updateCity({ id: editId, ...city }));
+      const editIdStr = editId ? String(editId) : null;
+  
+      if (editIdStr) {
+        const cityRef = doc(db, "cities", editIdStr);
+        await updateDoc(cityRef, city);
+        dispatch(updateCity({ id: editIdStr, ...city }));
       } else {
-        // Aggiungi un nuovo documento
-        const docRef = await addDoc(collection(db, "cities"), city);
-        dispatch(add({ id: docRef.id, ...city }));
+        const newId = await getNextId();
+        const cityRef = doc(db, "cities", newId); // Usa l'ID incrementale
+        await setDoc(cityRef, { ...city, id: newId }); // Usa setDoc per assegnare un ID specifico
+        dispatch(add({ id: newId, ...city }));
       }
-
-      // Reset form data
+  
       setFormData({
         title: "",
         isVisited: false,
@@ -108,16 +118,16 @@ function CardForm({ initialData, editId }) {
         imgURL: "",
         stages: []
       });
-
+  
       navigate('/lista-viaggi');
     } catch (error) {
-      console.error("Errore nell'aggiungere o aggiornare il documento: ", error);
+      console.error("Errore nell'aggiungere o aggiornare il documento: ", error.message);
+      alert("Errore: " + error.message);
     }
   };
 
   return (
     <form onSubmit={handleSubmit} className="max-w-sm mx-auto">
-      {/* Resto del modulo rimane invariato */}
       <div className="mb-5">
         <label htmlFor="title" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nome Città</label>
         <input 
