@@ -48,11 +48,33 @@ function DetailsPage({ isPreview = false }) {
     city && (
       <div className="my-5 flex bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
         <a href="#">
-          <div className="square rounded-tl-lg md:rounded-bl-lg">
+          <div className="square rounded-tl-lg md:rounded-bl-lg flex flex-col items-start">
             <img  
               src={city?.imgURL} 
               alt={city?.title}
             />
+
+            <div className='mt-1 flex items-start'>
+              <Link 
+                to={`/modifica-viaggio/${city.id}`}
+                state={{ city }}
+                className='me-1'
+              >
+                  <button 
+                    className="md:hidden inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-yellow-500 rounded-lg hover:bg-yellow-600 focus:ring-4 focus:outline-none focus:ring-yellow-300 dark:bg-yellow-400 dark:hover:bg-yellow-500 dark:focus:ring-yellow-600"
+                  >
+                    <i className="fa-solid fa-pen-to-square"></i>
+                  </button>
+              </Link>
+
+              <button 
+                onClick={handleDelete}
+                className="md:hidden inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-red-500 rounded-lg hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-red-300 dark:bg-red-400 dark:hover:bg-red-500 dark:focus:ring-red-600"
+              >
+                <i className="fa-solid fa-trash"></i>
+              </button>
+            </div>
+
           </div>
         </a>
         <div className="p-5 relative">
@@ -62,10 +84,10 @@ function DetailsPage({ isPreview = false }) {
               <Link 
                 to={`/modifica-viaggio/${city.id}`}
                 state={{ city }}
-                className='absolute top-4 end-[60px]'
+                className='hidden md:inline-flex absolute top-4 end-[55px]'
               >
                   <button 
-                    className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-yellow-500 rounded-lg hover:bg-yellow-600 focus:ring-4 focus:outline-none focus:ring-yellow-300 dark:bg-yellow-400 dark:hover:bg-yellow-500 dark:focus:ring-yellow-600"
+                    className="hidden md:inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-yellow-500 rounded-lg hover:bg-yellow-600 focus:ring-4 focus:outline-none focus:ring-yellow-300 dark:bg-yellow-400 dark:hover:bg-yellow-500 dark:focus:ring-yellow-600"
                   >
                     <i className="fa-solid fa-pen-to-square"></i>
                   </button>
@@ -73,7 +95,7 @@ function DetailsPage({ isPreview = false }) {
               
               <button 
                 onClick={handleDelete}
-                className="absolute top-[22px] end-4 me-1 inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-red-500 rounded-lg hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-red-300 dark:bg-red-400 dark:hover:bg-red-500 dark:focus:ring-red-600"
+                className="hidden absolute top-[16px] end-4 md:inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-red-500 rounded-lg hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-red-300 dark:bg-red-400 dark:hover:bg-red-500 dark:focus:ring-red-600"
               >
                 <i className="fa-solid fa-trash"></i>
               </button>
