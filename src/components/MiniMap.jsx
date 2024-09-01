@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import '@tomtom-international/web-sdk-maps/dist/maps.css'; // Importa il CSS per TomTom Maps
 import './MiniMap.css'; // Assicurati di avere questo file per eventuali stili personalizzati
 
-const TOMTOM_API_KEY = '87rH6u74NltAZ17hW8xpBmVJIpQsaK45'; // Sostituisci con la tua chiave API TomTom
+const TOMTOM_API_KEY = import.meta.env.VITE_TOMTOM_API_KEY; // Sostituisci con la tua chiave API TomTom
 
 function MiniMap({ coordinates, title, stages }) {
   const mapContainerRef = useRef(null);

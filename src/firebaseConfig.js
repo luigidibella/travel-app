@@ -7,7 +7,7 @@ import { getStorage } from "firebase/storage";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyCJo2WwJSt9QL75fXEtihOzs8xEBhSm2CU",
+  apiKey: import.meta.env.VITE_GOOGLE_API_KEY,
   authDomain: "travel-app-1set24.firebaseapp.com",
   projectId: "travel-app-1set24",
   storageBucket: "travel-app-1set24.appspot.com",

@@ -5,7 +5,7 @@ import '@tomtom-international/web-sdk-maps/dist/maps.css'; // Importa il CSS per
 import './Map.css';
 import Footer from '../components/Footer';
 
-const TOMTOM_API_KEY = '87rH6u74NltAZ17hW8xpBmVJIpQsaK45'; // Sostituisci con la tua chiave API TomTom
+const TOMTOM_API_KEY = import.meta.env.VITE_TOMTOM_API_KEY; // Sostituisci con la tua chiave API TomTom
 
 function Map() {
   const mapContainerRef = useRef(null);
