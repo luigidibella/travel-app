@@ -3,7 +3,7 @@
     "id": 0,
     "title": "Tokyo",
     "isVisited": true,
-    "description": "Tokio è la capitale del Giappone, una metropoli vibrante e moderna che mescola grattacieli futuristici con templi storici. È un importante centro economico, culturale e tecnologico.",
+    "description": "Tokyo è la capitale del Giappone, una metropoli moderna che unisce grattacieli futuristici a templi storici. Centro economico, culturale e tecnologico.",
     "imgURL": "https://firebasestorage.googleapis.com/v0/b/travel-app-1set24.appspot.com/o/tokio.avif?alt=media&token=0e54a000-a135-4291-b812-d110f26717ad",
     "stages": [
       { "date": "2024-05-01", "name": "Tempio Senso-ji", "coordinates": [139.7967, 35.7148], "notes": "Antico tempio buddista, famoso per il suo grande lanternino rosso." },
@@ -17,7 +17,7 @@
     "id": 1,
     "title": "Parigi",
     "isVisited": false,
-    "description": "Parigi, la capitale della Francia, è famosa per la sua architettura iconica, come la Torre Eiffel e il Louvre. La città è un centro di arte, moda e cultura con una vibrante vita notturna e cucina raffinata.",
+    "description": "Parigi, capitale francese, è famosa per monumenti iconici come la Torre Eiffel e il Louvre. Centro di arte, moda, cultura, vita notturna e cucina raffinata.",
     "imgURL": "https://firebasestorage.googleapis.com/v0/b/travel-app-1set24.appspot.com/o/parigi.avif?alt=media&token=9de7e5ca-c665-4712-8ce2-26fc3ea175c1",
     "stages": [
       { "date": "2024-06-10", "name": "Torre Eiffel", "coordinates": [2.2945, 48.8584], "notes": "Simbolo iconico di Parigi con vista panoramica mozzafiato." },
@@ -31,7 +31,7 @@
     "id": 2,
     "title": "New York",
     "isVisited": true,
-    "description": "New York City, conosciuta come la Grande Mela, è un vibrante melting pot di culture. Con i suoi iconici grattacieli, Times Square e Central Park, è un centro globale di finanza, arte e intrattenimento.",
+    "description": "New York City, la Grande Mela, è un melting pot culturale con iconici grattacieli, Times Square e Central Park. Centro globale di finanza, arte e intrattenimento.",
     "imgURL": "https://firebasestorage.googleapis.com/v0/b/travel-app-1set24.appspot.com/o/new-york.avif?alt=media&token=f5b21a59-062a-4b80-835f-1e24337a8268",
     "stages": [
       { "date": "2024-07-15", "name": "Statua della Libertà", "coordinates": [-74.0445, 40.6892], "notes": "Monumento simbolico della libertà e dell'accoglienza a New York." },
@@ -45,7 +45,7 @@
     "id": 3,
     "title": "Città del Capo",
     "isVisited": false,
-    "description": "Città del Capo, situata in Sudafrica, è celebre per la sua bellezza naturale, con il maestoso Table Mountain e splendide spiagge. La città è anche un vivace centro culturale con una ricca storia e una cucina variegata.",
+    "description": "Città del Capo, in Sudafrica, è famosa per la Table Mountain e splendide spiagge. Vivace centro culturale con ricca storia e cucina variegata.",
     "imgURL": "https://firebasestorage.googleapis.com/v0/b/travel-app-1set24.appspot.com/o/citta-del-capo.avif?alt=media&token=27cae7f3-caed-475b-a603-0d34012e099c",
     "stages": [
       { "date": "2024-09-05", "name": "Table Mountain", "coordinates": [18.4105, -33.9628], "notes": "Maestosa montagna piatta con panorami spettacolari sulla città." },
@@ -59,7 +59,7 @@
     "id": 4,
     "title": "Roma",
     "isVisited": true,
-    "description": "Roma, la capitale d'Italia, è un vero museo a cielo aperto con antiche rovine, come il Colosseo e il Foro Romano. La città è un crogiolo di storia, arte e cultura, con una cucina eccezionale e vivace vita cittadina.",
+    "description": "Roma, capitale d'Italia, è un museo a cielo aperto con antiche rovine come Colosseo e Foro Romano. Crogiolo di storia, arte, cultura e cucina eccezionale.",
     "imgURL": "https://firebasestorage.googleapis.com/v0/b/travel-app-1set24.appspot.com/o/roma.avif?alt=media&token=33ec8f3a-3bc4-44e1-a4fd-5eb7e52528e5",
     "stages": [
       { "date": "2024-10-12", "name": "Colosseo", "coordinates": [12.4922, 41.8902], "notes": "Antico anfiteatro romano, simbolo della grandezza di Roma antica." },
@@ -73,7 +73,7 @@
     "id": 5,
     "title": "Sydney",
     "isVisited": false,
-    "description": "Sydney, una delle città più iconiche dell'Australia, è nota per la sua iconica Opera House e il Harbour Bridge. Con le sue splendide spiagge e un clima mite, è un centro vivace di cultura, gastronomia e attività all'aperto.",
+    "description": "Sydney, iconica città australiana, è famosa per l'Opera House e il Harbour Bridge. Con splendide spiagge e clima mite, è un vivace centro di cultura e attività.",
     "imgURL": "https://firebasestorage.googleapis.com/v0/b/travel-app-1set24.appspot.com/o/sidney.avif?alt=media&token=5eca8a1e-31b3-4ab9-8d7e-1389c4b77e40",
     "stages": [
       { "date": "2024-11-20", "name": "Sydney Opera House", "coordinates": [151.2140, -33.8572], "notes": "Iconica casa dell'opera con design architettonico unico e spettacoli." },
