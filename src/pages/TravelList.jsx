@@ -1,4 +1,5 @@
 import { useCities } from '../redux/hooks/useCities';
+import { useEffect } from 'react';
 import { toggleFilter } from '../redux/filterSlice';
 
 import Navbar from '../components/Navbar';
@@ -7,6 +8,15 @@ import Footer from '../components/Footer';
 
 function TravelList() {
   const { filteredCities, filterText, dispatch } = useCities();
+  
+  useEffect(() => {
+    // Verifica se la query string contiene 'deleted=true'
+    const params = new URLSearchParams(location.search);
+    if (params.get('deleted') === 'true') {
+        // Forza l'aggiornamento della pagina
+        console.log('Città Cancellata');
+    }
+  }, [location.search]);
 
   return (
     <>
