@@ -4,16 +4,19 @@ import { toggleFilter } from './redux/filterSlice';
 
 import Navbar from './components/Navbar';
 import CardDetails from './components/CardDetails';
+import HorizontalCard from './components/partials/HorizontalCard';
 import CardItem from './components/CardItem';
 "use client";
 import { Carousel } from "flowbite-react";
 import Footer from './components/Footer';
+import { useMediaQuery } from '@react-hook/media-query';
 
 import 'flowbite';
 import './App.css';
 
 function App() {
   const { filteredCities, filterText, dispatch } = useCities();
+  const isLargeScreen = useMediaQuery('(min-width: 768px)'); // Esempio: 768px per considerare un tablet o più grande
 
   return (
     <>
@@ -33,15 +36,27 @@ function App() {
               indicators={false}
             >
               {filteredCities.map((city) => (
-                <CardDetails 
-                  key={city.id}
-                  cardID={city.id}
-                  imgURL={city.imgURL}
-                  title={city.title}
-                  isVisited={city.isVisited}
-                  description={city.description}
-                  link={`/lista-viaggi/${city.id}`}
-                />
+                isLargeScreen ? (
+                  <CardDetails
+                    key={city.id}
+                    cardID={city.id}
+                    imgURL={city.imgURL}
+                    title={city.title}
+                    isVisited={city.isVisited}
+                    description={city.description}
+                    link={`/lista-viaggi/${city.id}`}
+                  />
+                ) : (
+                  <HorizontalCard 
+                    key={city.id}
+                    cardID={city.id}
+                    imgURL={city.imgURL}
+                    title={city.title}
+                    isVisited={city.isVisited}
+                    description={city.description}
+                    link={`/lista-viaggi/${city.id}`}
+                  />
+                )
               ))}
             </Carousel>
           </div>
