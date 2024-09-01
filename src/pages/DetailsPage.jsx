@@ -1,6 +1,8 @@
 import { useParams, useLoaderData, useNavigate, Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { selectCityById } from '../redux/selectors';
+import { db } from "../firebaseConfig";
+import { doc, deleteDoc } from "firebase/firestore";
 import Navbar from '../components/Navbar';
 import MiniMap from '../components/MiniMap';
 import Footer from '../components/Footer';
@@ -25,6 +27,21 @@ function DetailsPage({ isPreview = false }) {
     navigate(-1);
   };
 
+  const handleDelete = async () => {
+    const isConfirmed = window.confirm("Sei sicuro di voler eliminare questo viaggio?");
+    if (!isConfirmed) return;
+  
+    const cityRef = doc(db, "cities", city.id);
+    try {
+      await deleteDoc(cityRef);
+      // Reindirizza alla pagina principale e fornisci una segnalazione della modifica
+      navigate('/lista-viaggi?deleted=true');
+      window.location.reload();
+    } catch (error) {
+      console.error("Errore nell'eliminazione della città:", error);
+    }
+  };
+  
   console.log(city);
 
   const content = (
@@ -50,20 +67,16 @@ function DetailsPage({ isPreview = false }) {
                   <button 
                     className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-yellow-500 rounded-lg hover:bg-yellow-600 focus:ring-4 focus:outline-none focus:ring-yellow-300 dark:bg-yellow-400 dark:hover:bg-yellow-500 dark:focus:ring-yellow-600"
                   >
-                    <i class="fa-solid fa-pen-to-square"></i>
+                    <i className="fa-solid fa-pen-to-square"></i>
                   </button>
               </Link>
-              <Link 
-                to={`/modifica-viaggio/${city.id}`}
-                state={{ city }}
-                className='absolute top-4 end-4'
+              
+              <button 
+                onClick={handleDelete}
+                className="absolute top-[22px] end-4 me-1 inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-red-500 rounded-lg hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-red-300 dark:bg-red-400 dark:hover:bg-red-500 dark:focus:ring-red-600"
               >
-                  <button 
-                    className="me-1 inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-red-500 rounded-lg hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-red-300 dark:bg-red-400 dark:hover:bg-red-500 dark:focus:ring-red-600"
-                  >
-                    <i class="fa-solid fa-trash"></i>
-                  </button>
-              </Link>
+                <i className="fa-solid fa-trash"></i>
+              </button>
             </h5>
           </a>
           <span
@@ -92,7 +105,7 @@ function DetailsPage({ isPreview = false }) {
           onClick={handleGoBack}
           className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
         >
-          indietro
+          <i className="fa-solid fa-arrow-left me-1"></i> indietro
         </button>
         {content}
 
