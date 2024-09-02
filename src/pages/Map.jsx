@@ -46,8 +46,8 @@ function Map() {
             // Crea un elemento HTML per il marker
             const markerElement = document.createElement('div');
             markerElement.innerHTML = isVisited
-              ? `<i class="fa-solid fa-circle-check" style="color: #63E6BE; font-size: 24px; background-color: white; border-radius: 50%; border: 1px solid black;"></i>`
-              : `<i class="fa-solid fa-circle-xmark" style="color: #ff0000; font-size: 24px; background-color: white; border-radius: 50%; border: 1px solid black;"></i>`; // Aumenta la dimensione dell'icona a 24px
+              ? `<i class="fa-solid fa-circle-check" style="color: #0e9f6e; font-size: 24px; background-color: white; border-radius: 50%; border: 1px solid black;"></i>`
+              : `<i class="fa-solid fa-circle-xmark" style="color: #f05252; font-size: 24px; background-color: white; border-radius: 50%; border: 1px solid black;"></i>`; // Aumenta la dimensione dell'icona a 24px
 
             // Crea il marker con l'elemento HTML
             new tt.Marker({ element: markerElement })
