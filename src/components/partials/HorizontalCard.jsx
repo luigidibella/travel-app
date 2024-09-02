@@ -3,7 +3,7 @@ function HorizontalCard ({ imgURL, title, children, isVisited, description, city
     <>
       <a
           href="#"
-          className="relative flex items-center bg-white border border-gray-200 rounded-lg shadow flex-row max-w-full hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700"
+          className="h-full relative flex items-center bg-white border border-gray-200 rounded-lg shadow flex-row max-w-full hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700"
           style={{
             backgroundImage: `url(${imgURL})`,
             backgroundSize: 'cover',
