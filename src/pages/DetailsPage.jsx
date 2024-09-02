@@ -102,9 +102,17 @@ function DetailsPage({ isPreview = false }) {
             </h5>
           </a>
           <span
-            className={`inline-block mb-2 ${city?.isVisited ? 'text-green-500 border-t border-b border-[#e5e7eb] w-full' : 'text-red-500 border-t border-b border-[#e5e7eb] w-full'}`}
+            className={`inline-block mb-2 ${
+              city?.isVisited
+                ? 'text-green-500 border-t border-b border-green-500 w-full'
+                : 'text-red-500 border-t border-b border-red-500 w-full'
+            }`}
           >
-            {city?.isVisited ? '✔️ visitata' : '❌ non visitata'}
+            {city?.isVisited ? (
+              <span><i className="fas fa-check" style={{ color: '#0e9f6e' }}></i> visitata</span>
+            ) : (
+              <span><i className="fa-solid fa-xmark" style={{ color: '#f05252' }}></i> non visitata</span>
+            )}
           </span>
           <p className="mb-3 text-start font-normal text-gray-700 dark:text-gray-400">
             {city?.description}

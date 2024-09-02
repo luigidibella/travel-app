@@ -34,11 +34,19 @@ function CardItem({ cardID, imgURL, title, children, isVisited, description, lin
           />
         </div>
         <div className="p-5">
-            <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{title}</h5>
+          <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{title}</h5>
           <span
-            className={`inline-block mb-2 ${isVisited ? 'text-green-500 border-t border-b border-green-500 w-full' : 'text-red-500 border-t border-b border-red-500 w-full'}`}
+            className={`inline-block mb-2 ${
+              isVisited
+                ? 'text-green-500 border-t border-b border-green-500 w-full'
+                : 'text-red-500 border-t border-b border-red-500 w-full'
+            }`}
           >
-            {isVisited ? '✔️ visitata' : '❌ non visitata'}
+            {isVisited ? (
+              <span><i className="fas fa-check" style={{ color: '#0e9f6e' }}></i> visitata</span>
+            ) : (
+              <span><i className="fa-solid fa-xmark" style={{ color: '#f05252' }}></i> non visitata</span>
+            )}
           </span>
           <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">{description}</p>
           <Link
