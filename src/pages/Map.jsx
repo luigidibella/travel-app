@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { useCities } from '../redux/hooks/useCities';
+import { toggleFilter } from '../redux/filterSlice';
 import Navbar from '../components/Navbar';
 import '@tomtom-international/web-sdk-maps/dist/maps.css'; // Importa il CSS per TomTom Maps
 import './Map.css';
@@ -9,7 +10,7 @@ const TOMTOM_API_KEY = import.meta.env.VITE_TOMTOM_API_KEY; // Sostituisci con l
 
 function Map() {
   const mapContainerRef = useRef(null);
-  const { filteredCities } = useCities();
+  const { filteredCities, filterText, dispatch } = useCities();
   
   useEffect(() => {
     console.log('Componente Mappa montato'); // Verifica che il componente sia montato
@@ -86,6 +87,12 @@ function Map() {
             className="tomtom-map-container"
           ></div>
         </div>
+          <button 
+            onClick={() => dispatch(toggleFilter())}
+            className="mt-5 inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+          >
+            {filterText}
+          </button>
       </div>
       <Footer />
     </div>
